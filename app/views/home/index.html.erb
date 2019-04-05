@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Scegli il colore</h1>
+
+  <div class="row m-3">
+    <%= Color.find_each do |color| %>  
+      <div class="col-md-4">
+        <%= color_button_link(color) %>  
+      </div>
+    <% end %>
+  </div>
+</div>

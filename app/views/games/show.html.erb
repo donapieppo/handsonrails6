@@ -1,0 +1,55 @@
+<div class="game card mt-3">
+  <div class="card-header">
+    <%= color_dot(@game) %> 
+    <span class="game-title"><%= @game.name %></span>
+    <div class="float-right"><%= l @game.created_at %></div>
+  </div>
+
+  <div class="card-body">
+    <div style="">
+      <% if @game.sketch.attached? %>  
+        <%= image_tag @game.sketch, style: 'margin: auto; display: block; width: 50%', id: 'pippo' %>  
+      <% else %>
+        <%= missing_image_tag %>  
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <div>
+      <div class="game-reactions">
+        <%= game_reaction(@game, :like) %> 
+        <%= game_reaction(@game, :hard) %>  
+        <%= game_reaction(@game, :soft) %>  
+      </div>
+      <div class="dropdown float-right">
+        <button class="btn dropdown-toggle" type="button" id="dropdownActionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownActionsButton">
+          <%= link_to 'modifica', edit_game_path(@game), class: "dropdown-item" %>
+          <%= link_to 'modifica', edit_game_path(@game), class: "dropdown-item" %>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div><%= @game.description %> </div>
+      <div class="game-author"><small>by <%= @game.user.name %></small></div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>  
+$( document ).ready(function() {
+  var pippa = true;
+	$("#pippo").on('click', function () { 
+    if (pippo) {
+  		$(this).width("100%"); 
+    } else {
+  		$(this).width("50%"); 
+    } 
+    pippo = ! pippo;
+	});
+})
+<% end %>
+

@@ -1,0 +1,17 @@
+it:
+  hello: "Hello world"
+  blue: blu
+  green: verde
+  yellow: giallo
+  orange: arancione
+  purple: viola
+  black: nero
+
+  activerecord:
+    models:
+      game: boulder
+    attributes:
+      game:
+        name: nome
+        color: colore
+        user: tracciatore

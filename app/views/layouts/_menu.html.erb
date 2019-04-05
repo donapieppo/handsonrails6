@@ -1,0 +1,24 @@
+<nav class="navbar navbar-light bg-white">
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <%= image_tag 'eden_logo.jpg' %> blocchi e giri
+  <% end %>
+  <% cache "colors_nav" do %>
+    <ul class="nav">
+      <% Color.find_each do |color| %>
+        <li class="nav-item"><%= color_link(color) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <%= link_to 'blocchi', games_path, class: "nav-item nav-link" %>
+      <%= link_to 'nuovo blocco', new_game_path, class: "nav-item nav-link" %>
+      <%= link_to 'qrcodes', qrcodes_games_path, class: "nav-item nav-link" %>
+    </div>
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+

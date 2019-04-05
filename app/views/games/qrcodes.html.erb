@@ -1,0 +1,8 @@
+<h1>Eden</h1>
+
+<% Game.find_each do |game| %>  
+  <div>
+    <%= qrcode(game) %>
+    <strong><%= game.name %> </strong> 
+  </div>
+<% end %>

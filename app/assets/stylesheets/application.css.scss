@@ -1,0 +1,49 @@
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+.home-button {
+  @extend .btn;
+  @extend .btn-lg;
+  @extend .m-2;
+  @extend .py-5;
+  width: 100%;
+}
+.home-button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.games-list {
+  @extend .card-columns;
+  column-count: 1;
+  @include media-breakpoint-up(lg) {
+    column-count: 3;
+  }
+}
+
+.game {
+  margin: auto;
+  max-width: 950px;
+  .game-title {
+    margin-left: 10px;
+    font-size: 21px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: black;
+  }
+  .game-reactions {
+    font-size: 21px;
+  }
+}
+.game-author {
+  @extend .float-right;
+  @extend .text-muted;
+}
+.dot {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
