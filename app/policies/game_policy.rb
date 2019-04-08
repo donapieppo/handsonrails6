@@ -12,7 +12,6 @@ class GamePolicy
 
   def edit?
     @user and @user.id == @record.user_id
-    true
   end
 
   def update?
