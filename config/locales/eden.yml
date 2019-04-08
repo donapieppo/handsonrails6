@@ -7,11 +7,15 @@ it:
   purple: viola
   black: nero
 
+  login_description: Accedi per poter commentare i blocchi / giri.
+  google_login:   Accedi con Google
+
   activerecord:
     models:
       game: boulder
     attributes:
       game:
-        name: nome
-        color: colore
-        user: tracciatore
+        name: Nome
+        description: Descrizione
+        color: Colore
+        user: Tracciatore
