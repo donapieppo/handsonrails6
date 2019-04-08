@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-white">
   <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag 'eden_logo.jpg' %> blocchi e giri
+    <%= image_tag 'eden_logo.jpg' %> 
   <% end %>
   <% cache "colors_nav" do %>
     <ul class="nav">
@@ -9,16 +9,25 @@
       <% end %>
     </ul>
   <% end %>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <%= link_to 'blocchi', games_path, class: "nav-item nav-link" %>
-      <%= link_to 'nuovo blocco', new_game_path, class: "nav-item nav-link" %>
-      <%= link_to 'qrcodes', qrcodes_games_path, class: "nav-item nav-link" %>
+
+  <div class="dropdown">
+    <div type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </div>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+      <%= link_to '<i class="fas fa-bars fa-fw"></i>'.html_safe   + ' blocchi', games_path, class: "dropdown-item" %>
+      <%= link_to '<i class="fas fa-plus fa-fw"></i>'.html_safe   + ' nuovo blocco', new_game_path, class: "dropdown-item" %>
+      <%= link_to '<i class="fas fa-qrcode fa-fw"></i>'.html_safe + ' qrcodes', qrcodes_games_path, class: "dropdown-item" %>
+      <% if user_admin? %>  
+        <%= link_to '<i class="fas fa-users fa-fw"></i>'.html_safe + ' users', users_path, class: "dropdown-item" %>
+      <% end %>
+      <div class="dropdown-divider"></div>
+      <% if current_user %>  
+        <%= link_to current_user.name, games_path(user_id: current_user.id), class: "dropdown-item" %>   
+      <% else %>
+        <%= link_to 'accedi', login_path, class: "dropdown-item" %>   
+      <% end %>
     </div>
   </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 </nav>
 
