@@ -5,6 +5,8 @@ class GamesController < ApplicationController
     @games = Game.includes(:user).order('games.name')
     if params[:color_id]
       @games = @games.where(color_id: params[:color_id])
+    elsif params[:user_id]
+      @games = @games.where(user_id: params[:user_id])
     end
   end
 
