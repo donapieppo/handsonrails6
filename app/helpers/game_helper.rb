@@ -1,15 +1,9 @@
 module GameHelper
-  def current_user
-    User.find(1)
-  end
-
   def game_color(game)
   end
 
   def color_dot(game)
-    content_tag :span, class: 'dot', style: "background-color: #{game.color.name}" do
-      "  "
-    end
+    content_tag(:i, '', class: 'fas fa-circle', style: "font-size: 16px; color: #{game.color.name}") 
   end
 
   def qrcode(game)
@@ -31,13 +25,17 @@ module GameHelper
     when :soft
       "fas fa-baby" 
     end
-    content_tag(:i, '', class: "#{icon} #{muted} m-1")
+    content_tag(:i, '', class: "#{icon} #{muted} m-1", id: what.to_s)
   end
 
   def game_reaction(game, what)
     num = game.reactions.where(name: what.to_s).count
-    icon = game_reaction_icon(what, muted: ! current_user.has_reactions?(game, what))
-    link_to(icon, toggle_game_reactions_path(game, w: what), remote: true) + " #{num}"
+    icon = game_reaction_icon(what, muted: (! current_user || ! current_user.has_reactions?(game, what)))
+    if current_user
+      link_to(icon, toggle_game_reactions_path(game, w: what), remote: true) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
+    else
+      content_tag :span, icon + " #{num}", title: "Pima di commentare ti chiediamo di accedere (menu / accedi)."
+    end
   end
 end
 
