@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="group-list">
+    <% @users.each do |user| %>  
+      <div class="list-group-item py-1">  
+        <%= link_to user.name.upcase, edit_user_path(user) %> <span class="float-right"><small><%= user.email %></small></span>
+      </div>
+    <% end %>
+  </div>
+</div>
