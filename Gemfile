@@ -20,6 +20,7 @@ gem 'rqrcode'
 gem 'image_processing', '~> 1.2'
 
 gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
