@@ -1,0 +1,9 @@
+<div class="container">
+  <p id="login_description">
+  <%= t :login_description %>  
+  </p>
+
+  <div id="login_form">
+    <p><%= link_to '<i class="fab fa-google"></i>'.html_safe + ' &nbsp;'.html_safe + t(:google_login), google_login_path, class: 'btn btn-info' %></p>
+  </div>
+</div>
