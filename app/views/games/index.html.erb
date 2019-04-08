@@ -1,8 +1,9 @@
 <div class="games-list">
   <% @games.each do |game| %>  
-    <div class="card mb-3" style="border-color: <%= game.color %>">
+    <div class="card mb-3" style="border-color: <%= game.color.name %>">
       <div class="card-header">
-        <span><%= color_dot(game) %> <%= game.name.upcase %></span>
+        <%= color_dot(game) %> 
+        <span class="game-title"><%= game.name.upcase %></span>
       </div>
       <div class="card-body">
         <%= link_to game_path(game) do %>  
@@ -14,8 +15,8 @@
         <% end %>
       </div>
       <div class="card-footer bg-light">
-        <span class=""><%= l game.created_at %></span>
-        <span class="text-muted float-right">by <%= game.user.name %></span>
+        <span><small><%= l game.created_at %></small></span>
+        <small><%= link_to "by #{game.user.name}", games_path(user_id: game.user_id), class: "badge badge-info float-right py-2"%></small>
       </div>
     </div>
   <% end %>

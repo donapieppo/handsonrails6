@@ -1,14 +1,17 @@
-<div class="game card mt-3">
+<div class="game card my-3" style="max-width: 600px">
   <div class="card-header">
     <%= color_dot(@game) %> 
-    <span class="game-title"><%= @game.name %></span>
-    <div class="float-right"><%= l @game.created_at %></div>
+    <span class="game-title"><%= @game.name.upcase %></span>
+    <% if policy(@game).edit? %>  
+      <%= link_to '<i class="fas fa-edit mx-2"></i>'.html_safe, edit_game_path(@game), class: "float-right" %>
+    <% end %>
+    <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right py-2"%>
   </div>
 
-  <div class="card-body">
-    <div style="">
+  <div class="card-body m-0 p-0">
+    <div id="game-image-div" style="width: 100%; position: relative; z-index: 10;">
       <% if @game.sketch.attached? %>  
-        <%= image_tag @game.sketch, style: 'margin: auto; display: block; width: 50%', id: 'pippo' %>  
+        <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
       <% else %>
         <%= missing_image_tag %>  
       <% end %>
@@ -16,40 +19,37 @@
   </div>
 
   <div class="card-footer">
-    <div>
-      <div class="game-reactions">
-        <%= game_reaction(@game, :like) %> 
-        <%= game_reaction(@game, :hard) %>  
-        <%= game_reaction(@game, :soft) %>  
-      </div>
-      <div class="dropdown float-right">
-        <button class="btn dropdown-toggle" type="button" id="dropdownActionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownActionsButton">
-          <%= link_to 'modifica', edit_game_path(@game), class: "dropdown-item" %>
-          <%= link_to 'modifica', edit_game_path(@game), class: "dropdown-item" %>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div><%= @game.description %> </div>
-      <div class="game-author"><small>by <%= @game.user.name %></small></div>
-    </div>
+    <%= game_reaction(@game, :like) %> 
+    <%= game_reaction(@game, :hard) %>  
+    <%= game_reaction(@game, :soft) %>  
+    <span class="float-right"><small><%= l @game.created_at %></small></span>
   </div>
+  <div>
+    <div><%= @game.description %> </div>
+  </div>
+</div>
 </div>
 
 <%= javascript_tag do %>  
 $( document ).ready(function() {
-  var pippa = true;
-	$("#pippo").on('click', function () { 
-    if (pippo) {
-  		$(this).width("100%"); 
-    } else {
-  		$(this).width("50%"); 
-    } 
-    pippo = ! pippo;
+  var i = 0;
+  $(".btn").on('click', function () { 
+    $("#game-image-div").css('display', 'block');
+  });
+  $("#game-image-div").on('click', function () { 
+    if (i == 0) {
+      $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0");
+      $(this).css('position', 'fixed').css('left', 0).css('top', 0);
+  		$("#game-image").css('max-width', ""); 
+    } else if (i == 1) {
+      $("body").empty();
+      window.location.href = "<%= game_path(@game) %>";
+      <%# $('meta[name=viewport]').attr('content', "width=device-width, minimum-scale=1.0, maximum-scale=1.0"); %>
+      <%# $(this).css('position', 'relative'); %>
+  		<%# $("#game-image").width("100%"); %> 
+  		<%# $("#game-image").css('margin', 'auto'); %> 
+    };
+    i = (i + 1) % 2;
 	});
 })
 <% end %>
-
