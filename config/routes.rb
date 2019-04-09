@@ -6,9 +6,11 @@ Rails.application.routes.draw do
     resources :reactions do
       get :toggle, on: :collection
     end
+    resources :comments
   end
 
   resources :users
+  resources :comments
 
   get 'login', to: 'logins#index', as: :login
   get 'logins/logout',               to: 'logins#logout',    as: :logout
