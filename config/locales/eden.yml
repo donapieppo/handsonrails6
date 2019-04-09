@@ -16,6 +16,18 @@ it:
     attributes:
       game:
         name: Nome
+        user: Tracciatore
         description: Descrizione
         color: Colore
-        user: Tracciatore
+        sit_start: partenza da terra
+        free_feet: piedi liberi
+        two_hands_start: partenza accoppiata     
+
+  simple_form:
+    hints:
+      game:
+        sit_start: 'Indica la partenza col culo a terra.'
+        free_feet: 'Si tratta di un giro e non di un vero e proprio blocco.'
+        two_hands_start: 'Entrambe le mani sulla presa di partenza.'
+
+  
