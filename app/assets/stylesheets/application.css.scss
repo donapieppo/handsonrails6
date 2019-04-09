@@ -12,8 +12,10 @@
 .home-button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-
 .games-list {
+  .card {
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 25px 0 rgba(0,0,0,0.19);  
+  }
   @extend .card-columns;
   column-count: 1;
   @include media-breakpoint-up(lg) {
@@ -21,12 +23,28 @@
     column-count: 4;
   }
 }
-
 .game {
-  margin: auto;
-  max-width: 950px;
+  .game-card {
+    margin: auto;
+    @extend .card;
+    max-width: 600px;
+  }
+  .game-header {
+    @extend .card-header;
+  }
+  .game-body {
+    @extend .card-body;
+  }
+  .game-footer {
+    @extend .card-footer;
+  }
   .game-reactions {
     font-size: 21px;
+  }
+  .comments {
+    margin: auto;
+    max-width: 600px;
+    font-size: 14px;
   }
 }
 .game-title {
@@ -37,4 +55,17 @@
 .game-author {
   @extend .float-right;
   @extend .text-muted;
+}
+.tag-item {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid #28a745;
+  line-height: 1.5;
+  border-radius: .25rem;
+  font-weight: 80;
+  font-size: 75%;
+  padding: .100rem .30rem;
+  margin: .100rem .30rem;
+  @extend .my-1;
 }
