@@ -1,8 +1,9 @@
-<h1>Eden</h1>
-
-<% Game.find_each do |game| %>  
-  <div>
-    <%= qrcode(game) %>
-    <strong><%= game.name %> </strong> 
-  </div>
-<% end %>
+<div class="container">
+  <% Game.find_each do |game| %>  
+    <% bgcolor, textcolor =  bg_and_color(game.color) %>  
+    <div style="padding: 5px; color: <%= textcolor %>; background-color: <%= bgcolor %>">
+      <div class="m-1"><%= qrcode(game) %></div>
+      <div class="font-weight-bold mx-auto"><%= game.name %></div>
+    </div>
+  <% end %>
+</div>

@@ -1,33 +1,55 @@
-<div class="game card my-3" style="max-width: 600px">
-  <div class="card-header">
-    <%= color_dot(@game) %> 
-    <span class="game-title"><%= @game.name.upcase %></span>
-    <% if policy(@game).edit? %>  
-      <%= link_to '<i class="fas fa-edit mx-2"></i>'.html_safe, edit_game_path(@game), class: "float-right" %>
-    <% end %>
-    <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right py-2"%>
-  </div>
+<div class="game">
+  <div class="game-card my-3">
+    <div class="game-header">
+      <%= color_dot(@game) %> 
+      <span class="game-title"><%= @game.name.upcase %></span>
+      <% if policy(@game).edit? %>  
+        <%= link_to '<i class="fas fa-edit mx-2"></i>'.html_safe, edit_game_path(@game), class: "float-right" %>
+      <% end %>
+      <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right py-2"%>
+    </div>
 
-  <div class="card-body m-0 p-0">
-    <div id="game-image-div" style="width: 100%; position: relative; z-index: 10;">
-      <% if @game.sketch.attached? %>  
-        <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
-      <% else %>
-        <%= missing_image_tag %>  
+    <div class="game-body m-0 p-0">
+      <div id="game-image-div" style="width: 100%; position: relative; z-index: 10;">
+        <% if @game.sketch.attached? %>  
+          <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
+        <% else %>
+          <%= missing_image_tag %>  
+        <% end %>
+      </div>
+    </div>
+
+    <div class="game-footer">
+      <%= game_reaction(@game, :like) %> 
+      <%= game_reaction(@game, :hard) %>  
+      <%= game_reaction(@game, :soft) %>  
+      <span class="float-right"><small><%= l @game.created_at %></small></span>
+    </div>
+    <div>
+      <% @game.tags.each do |t| %>  
+        <span class="tag-item"><%= t "activerecord.attributes.game.#{t}" %></span>
       <% end %>
     </div>
+    <div>
+      <div><%= @game.description %> </div>
+    </div>
   </div>
-
-  <div class="card-footer">
-    <%= game_reaction(@game, :like) %> 
-    <%= game_reaction(@game, :hard) %>  
-    <%= game_reaction(@game, :soft) %>  
-    <span class="float-right"><small><%= l @game.created_at %></small></span>
+  <div class="comments">
+    <p class="font-weigh-bold">Commenti</p>
+    <div class="group-list">
+      <% @comments.each do |comment| %>  
+        <div class="group-list-item">
+          <small><%= comment.user.name %>:</small> <%= comment.name %>
+        <% if policy(comment).destroy? %>
+          <%= link_to 'x', comment_path(comment), method: :delete, class: 'float-right' %> 
+        <% end %>
+        </div>
+      <% end %>
+    </div>
+    <% if current_user %>
+      <%= link_to '<i class="far fa-comment"></i>'.html_safe, new_game_comment_path(@game) %>  
+    <% end %>
   </div>
-  <div>
-    <div><%= @game.description %> </div>
-  </div>
-</div>
 </div>
 
 <%= javascript_tag do %>  

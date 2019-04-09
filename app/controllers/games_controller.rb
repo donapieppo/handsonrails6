@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :get_game_and_check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
-    @games = Game.includes(:user).order('games.name')
+    @games = Game.includes(:user).order('games.created_at desc, games.name')
     if params[:color_id]
       @games = @games.where(color_id: params[:color_id])
     elsif params[:user_id]
@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   end
 
   def show
+    @comments = @game.comments.includes(:user).order(:updated_at)
   end
 
   def new
@@ -32,7 +33,7 @@ class GamesController < ApplicationController
   end
 
   def update
-    if @game.update_attributes(game_params)
+    if @game.update(game_params)
       redirect_to game_path(@game)
     else
       render action: :edit
@@ -45,7 +46,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params[:game].permit(:name, :description, :color_id, :user_id, :sketch)
+    params[:game].permit(:name, :description, :color_id, :user_id, :sketch, :sit_start, :two_hands_start, :free_feet)
   end
 
   def get_game_and_check_permission
