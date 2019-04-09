@@ -12,7 +12,7 @@ module GameHelper
   end
 
   def missing_image_tag
-    '<i class="far fa-image" style="font-size: 120px"></i>'.html_safe
+    '<i class="far fa-image" style="margin: auto; font-size: 200px"></i>'.html_safe
   end
 
   def game_reaction_icon(what, muted: false)
@@ -28,13 +28,13 @@ module GameHelper
     content_tag(:i, '', class: "#{icon} #{muted} m-1", id: what.to_s)
   end
 
-  def game_reaction(game, what)
-    num = game.reactions.where(name: what.to_s).count
+  def game_reaction(game, what, editable: true)
+    num = game.cache_reactions_count what
     icon = game_reaction_icon(what, muted: (! current_user || ! current_user.has_reactions?(game, what)))
-    if current_user
+    if editable and current_user 
       link_to(icon, toggle_game_reactions_path(game, w: what), remote: true) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
     else
-      content_tag :span, icon + " #{num}", title: "Pima di commentare ti chiediamo di accedere (menu / accedi)."
+      content_tag :span, icon + " #{num.to_i}", title: "Pima di commentare ti chiediamo di accedere (menu / accedi)."
     end
   end
 end
