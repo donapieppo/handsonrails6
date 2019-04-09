@@ -15,9 +15,10 @@
       <span class="navbar-toggler-icon"></span>
     </div>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-      <%= link_to '<i class="fas fa-bars fa-fw"></i>'.html_safe   + ' blocchi', games_path, class: "dropdown-item" %>
       <%= link_to '<i class="fas fa-plus fa-fw"></i>'.html_safe   + ' nuovo blocco', new_game_path, class: "dropdown-item" %>
-      <%= link_to '<i class="fas fa-qrcode fa-fw"></i>'.html_safe + ' qrcodes', qrcodes_games_path, class: "dropdown-item" %>
+      <% if current_user %>
+        <%= link_to '<i class="fas fa-qrcode fa-fw"></i>'.html_safe + ' qrcodes', qrcodes_games_path, class: "dropdown-item" %>
+      <% end %>
       <% if user_admin? %>  
         <%= link_to '<i class="fas fa-users fa-fw"></i>'.html_safe + ' users', users_path, class: "dropdown-item" %>
       <% end %>
