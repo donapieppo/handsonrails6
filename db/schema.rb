@@ -38,18 +38,40 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.integer "val", null: false
   end
 
+  create_table "comments", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id", null: false, unsigned: true
+    t.integer "game_id", null: false, unsigned: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["game_id"], name: "game_id"
+    t.index ["user_id"], name: "user_id"
+  end
+
   create_table "games", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "color_id", unsigned: true
     t.integer "user_id", unsigned: true
+    t.string "tags", limit: 250
+    t.string "cache_reactions_counts", limit: 250
+    t.datetime "created_at", null: false
     t.index ["color_id"], name: "color_id"
+    t.index ["user_id"], name: "user_id"
+  end
+
+  create_table "reactions", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", null: false, unsigned: true
+    t.integer "game_id", null: false, unsigned: true
+    t.string "name", limit: 100
+    t.index ["game_id"], name: "game_id"
     t.index ["user_id"], name: "user_id"
   end
 
   create_table "users", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.boolean "manager"
     t.datetime "updated_at"
   end
 
@@ -200,6 +222,10 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "games", name: "comment_game_id_k"
+  add_foreign_key "comments", "users", name: "comment_user_id_k"
   add_foreign_key "games", "colors", name: "game_color_id_k"
   add_foreign_key "games", "users", name: "game_user_id_k"
+  add_foreign_key "reactions", "games", name: "reaction_game_id_k"
+  add_foreign_key "reactions", "users", name: "reaction_user_id_k"
 end
