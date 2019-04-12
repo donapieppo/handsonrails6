@@ -2,6 +2,15 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+.menu-button {
+  @extend .btn;
+  @extend .btn-info;
+}
+.dropdown-home-menu {
+  @extend .dropdown-menu;
+  @extend .dropdown-menu-right;
+  background-color: rgb(209, 236, 241);
+}
 .home-button {
   @extend .btn;
   @extend .btn-lg;
