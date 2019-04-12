@@ -12,10 +12,10 @@
 
   <% if current_user %>  
     <div class="dropdown">
-      <div type="button" class="btn btn-warning" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div type="button" class="menu-button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bars fw"></i>
       </div>
-      <div class="dropdown-menu dropdown-menu-right bg-warning" aria-labelledby="dropdownMenuButton">
+      <div class="dropdown-menu dropdown-menu-right dropdown-home-menu" aria-labelledby="dropdownMenuButton">
         <%= link_to icon("fas fa-plus fa-fw", 'nuovo blocco'), new_game_path, class: "dropdown-item" %>
         <%= link_to icon("fas fa-qrcode fa-fw", 'qrcodes'), qrcodes_games_path, class: "dropdown-item" %>
         <% if user_admin? %>  
