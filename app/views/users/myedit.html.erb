@@ -1,0 +1,8 @@
+<div class="container text-center">
+  <p class="alert alert-info">Scegli il nome che vuoi compaia quando commenti i blocchi o lasci dei messaggi.</p>
+  <%= form_tag myupdate_users_path, method: :put do %>    
+    <%= label_tag(:new_name, "Nome:") %>
+    <%= text_field_tag(:new_name, @user.name) %>
+    <%= submit_tag "Invia", class: 'btn btn-primary' %>
+  <% end %>
+</div>

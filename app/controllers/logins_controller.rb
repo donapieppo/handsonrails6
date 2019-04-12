@@ -47,7 +47,7 @@ class LoginsController < ApplicationController
     reset_session
     # logger.info("after logout we redirect to params[:return] = #{params[:return]}")
     # redirect_to (params[:return] || 'https://www.muriditalia.it')
-    redirect_to root_path 
+    redirect_to root_path, notice: "Uscito correttamente."
   end
 
   # Not authorized but valid credentials
@@ -76,15 +76,17 @@ class LoginsController < ApplicationController
     if ! user
       logger.info "Authentication: User #{@email} to be CREATED"
       user = User.create!(email: @email, name: @name)
+      sign_in_and_redirect user, edit_user_path()
+    else
+      logger.info "Authentication: allow_and_create found user #{user.inspect}"
+      sign_in_and_redirect user, root_path
     end
-    logger.info "Authentication: allow_and_create as #{user.inspect}"
-    sign_in_and_redirect user
   end
 
-  def sign_in_and_redirect(user)
+  def sign_in_and_redirect(user, url)
     session[:user_id] = user.id
     # redirect_to session[:original_request] || root_path
-    redirect_to root_path
+    redirect_to url
   end
 end
 

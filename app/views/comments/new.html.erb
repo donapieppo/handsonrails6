@@ -1,4 +1,6 @@
+<%= main_title('Aggiungi un commento') %>
+
 <%= simple_form_for [@game, @comment] do |comment| %>  
-  <%= comment.input :name %>  
-  <%= comment.submit  %>  
+  <%= comment.input :name, label:false, as: :text %>  
+  <%= comment.submit 'Invia', class: 'btn btn-primary btn-sm'  %>  
 <% end %>

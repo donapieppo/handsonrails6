@@ -10,25 +10,27 @@
     </ul>
   <% end %>
 
-  <div class="dropdown">
-    <div type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="navbar-toggler-icon"></span>
+  <% if current_user %>  
+    <div class="dropdown">
+      <div type="button" class="btn btn-warning" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-bars fw"></i>
+      </div>
+      <div class="dropdown-menu dropdown-menu-right bg-warning" aria-labelledby="dropdownMenuButton">
+        <%= link_to icon("fas fa-plus fa-fw", 'nuovo blocco'), new_game_path, class: "dropdown-item" %>
+        <%= link_to icon("fas fa-qrcode fa-fw", 'qrcodes'), qrcodes_games_path, class: "dropdown-item" %>
+        <% if user_admin? %>  
+          <%= link_to icon("fas fa-users fa-fw", 'users'), users_path, class: "dropdown-item" %>
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to icon("fas fa-star fa-fw", 'i miei blocchi'), games_path(user_id: current_user.id), class: "dropdown-item" %>
+        <%= link_to icon("fas fa-key fa-fw", current_user.name), myedit_users_path, class: "dropdown-item" %>   
+        <%= link_to icon("fas fa-sign-out-alt fa-fw", 'esci'), logout_path, class: "dropdown-item" %>   
+      </div>
     </div>
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-      <%= link_to '<i class="fas fa-plus fa-fw"></i>'.html_safe   + ' nuovo blocco', new_game_path, class: "dropdown-item" %>
-      <% if current_user %>
-        <%= link_to '<i class="fas fa-qrcode fa-fw"></i>'.html_safe + ' qrcodes', qrcodes_games_path, class: "dropdown-item" %>
-      <% end %>
-      <% if user_admin? %>  
-        <%= link_to '<i class="fas fa-users fa-fw"></i>'.html_safe + ' users', users_path, class: "dropdown-item" %>
-      <% end %>
-      <div class="dropdown-divider"></div>
-      <% if current_user %>  
-        <%= link_to current_user.name, games_path(user_id: current_user.id), class: "dropdown-item" %>   
-      <% else %>
-        <%= link_to 'accedi', login_path, class: "dropdown-item" %>   
-      <% end %>
-    </div>
-  </div>
+  <% else %>
+    <ul class="nav">
+      <li class="nav-item"><%= link_to icon("fas fa-sign-in-alt fa-fw", 'accedi'), login_path, class: "btn btn-warning" %>  </li>
+    </ul>
+  <% end %>
 </nav>
 

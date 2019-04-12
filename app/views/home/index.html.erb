@@ -8,4 +8,16 @@
       </div>
     <% end %>
   </div>
+
+  <div class="alert alert-info mt-3" style="font-size: 14px">
+    <p>Ultimi commenti: </p>
+    <div>
+      <% @last_comments.each do |comment| %>  
+        <div>
+          <small><b><%= comment.user.name %></b></small>: "<%= link_to comment.name, game_path(comment.game_id) %>"
+          <span class="float-right badge badge-info"><%= l comment.created_at %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

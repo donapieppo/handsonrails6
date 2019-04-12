@@ -17,15 +17,22 @@ it:
       game:
         name: Nome
         user: Tracciatore
-        description: Descrizione
+        description: Commento / Descrizione
         color: Colore
+        competition: per la prossima gara
         sit_start: partenza da terra
         free_feet: piedi liberi
         two_hands_start: partenza accoppiata     
+      user:
+        name: Nome
+        manager: Nel direttivo
+      comment:
+        name: testo
 
   simple_form:
     hints:
       game:
+        competition: 'Se selezionato, il blocco è visibile solo al direttivo fino al giorno della gara.'
         sit_start: 'Indica la partenza col culo a terra.'
         free_feet: 'Si tratta di un giro e non di un vero e proprio blocco.'
         two_hands_start: 'Entrambe le mani sulla presa di partenza.'

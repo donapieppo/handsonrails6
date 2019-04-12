@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
     @game = Game.find(params[:game_id])
     @comment = @game.comments.new
     authorize @comment
+    render layout: false if modal_page?
   end
 
   def create 
@@ -20,6 +21,6 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize @comment
     @comment.destroy
-    redirect_to game_path(@commet.game_id)
+    redirect_to game_path(@comment.game_id)
   end
 end

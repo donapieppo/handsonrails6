@@ -1,7 +1,7 @@
 module HomeHelper
   @@icons = {
-      'blue'   => "fas fa-child",
-      'green'  => "fas fa-snowman",
+      'blue'   => "fas fa-bicycle",
+      'green'  => "far fa-grin-beam",
       'yellow' => "fas fa-glass-martini-alt",
       'orange' => "fas fa-rocket",
       'purple' => "fas fa-bomb",

@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.integer "color_id", unsigned: true
     t.integer "user_id", unsigned: true
     t.string "tags", limit: 250
+    t.boolean "competition"
     t.string "cache_reactions_counts", limit: 250
     t.datetime "created_at", null: false
     t.index ["color_id"], name: "color_id"

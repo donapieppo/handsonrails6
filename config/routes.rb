@@ -9,7 +9,10 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :users
+  resources :users do
+    get :myedit, on: :collection
+    put :myupdate, on: :collection
+  end
   resources :comments
 
   get 'login', to: 'logins#index', as: :login

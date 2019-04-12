@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   I18n.locale = :it
 
-  helper_method :current_user, :user_admin?, :user_admin!
+  helper_method :current_user, :user_admin?, :user_admin!, :user_manager?, :user_manager!, :modal_page?
 
   before_action :log_current_user
 
@@ -21,11 +21,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def user_manager?
+    @user_manager ||= (current_user && current_user.is_manager?)
+  end
+
+  def user_manager!
+    user_manager? or raise NotAllowed
+  end
+
   def user_admin?
-    current_user && Rails.configuration.admins.include?(current_user.email)
+    @user_admin ||= (current_user && current_user.is_admin?)
   end
 
   def user_admin!
     user_admin? or raise NotAllowed
   end
+
+  def modal_page?
+    params[:modal] && params[:modal] == 'yyy'
+  end
+
 end

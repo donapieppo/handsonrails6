@@ -7,6 +7,7 @@
   @extend .btn-lg;
   @extend .m-2;
   @extend .py-5;
+  border-radius: 25px;
   width: 100%;
 }
 .home-button:hover {
@@ -45,6 +46,7 @@
     margin: auto;
     max-width: 600px;
     font-size: 14px;
+    @extend .px-3;
   }
 }
 .game-title {
@@ -57,6 +59,12 @@
   @extend .text-muted;
 }
 .tag-item {
+  @extend .badge;
+  @extend .badge-warning;
+  @extend .py-1;
+  @extend .px-2;
+}
+.tag-item2 {
   display: inline-block;
   text-align: center;
   vertical-align: middle;

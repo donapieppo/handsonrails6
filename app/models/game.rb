@@ -13,8 +13,16 @@ class Game < ApplicationRecord
 
   @@possible_tags = [:sit_start, :two_hands_start, :free_feet]
 
+  IN_COMPETITION = false
+
+  scope :to_show_to_anyone, -> { where(competition: IN_COMPETITION) }
+
   def to_s
     self.name
+  end
+
+  def show_to_anyone?
+    self.competition == IN_COMPETITION
   end
 
   def update_reactions_counts

@@ -2,8 +2,12 @@ module GameHelper
   def game_color(game)
   end
 
-  def color_dot(game)
-    content_tag(:i, '', class: 'fas fa-circle', style: "font-size: 16px; color: #{game.color.name}") 
+  def game_icon(game)
+    if game.competition
+      content_tag(:i, '', class: 'fas fa-trophy', style: "font-size: 18px; background-color: #{game.color.name}") 
+    else
+      content_tag(:i, '', class: 'fas fa-circle', style: "font-size: 18px; color: #{game.color.name}") 
+    end
   end
 
   def qrcode(game)
@@ -34,7 +38,7 @@ module GameHelper
     if editable and current_user 
       link_to(icon, toggle_game_reactions_path(game, w: what), remote: true) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
     else
-      content_tag :span, icon + " #{num.to_i}", title: "Pima di commentare ti chiediamo di accedere (menu / accedi)."
+      link_to(icon, login_path, title: "Pima di commentare ti chiediamo di accedere (menu / accedi).") + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
     end
   end
 end

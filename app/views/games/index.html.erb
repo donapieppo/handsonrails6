@@ -2,7 +2,7 @@
   <% @games.each do |game| %>  
     <div class="card mb-3" style="border-color: <%= game.color.name %>">
       <div class="card-header">
-        <%= color_dot(game) %> 
+        <%= game_icon(game) %> 
         <span class="game-title"><%= game.name.upcase %></span>
         <span class="float-right"><small><%= l game.created_at %></small></span>
       </div>
