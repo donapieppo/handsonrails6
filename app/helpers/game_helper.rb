@@ -37,8 +37,10 @@ module GameHelper
     icon = game_reaction_icon(what, muted: (! current_user || ! current_user.has_reactions?(game, what)))
     if editable and current_user 
       link_to(icon, toggle_game_reactions_path(game, w: what), remote: true) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
+    elsif editable
+      link_to(icon, login_path, title: "Prima di commentare ti chiediamo di accedere (menu / accedi).") + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
     else
-      link_to(icon, login_path, title: "Pima di commentare ti chiediamo di accedere (menu / accedi).") + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
+      content_tag :span, icon + " #{num}", title: "Per commentare visulizza il blocco cliccando sull'immagine."
     end
   end
 end
