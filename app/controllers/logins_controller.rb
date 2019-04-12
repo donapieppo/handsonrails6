@@ -76,7 +76,7 @@ class LoginsController < ApplicationController
     if ! user
       logger.info "Authentication: User #{@email} to be CREATED"
       user = User.create!(email: @email, name: @name)
-      sign_in_and_redirect user, myedit_user_path
+      sign_in_and_redirect user, myedit_users_path
     else
       logger.info "Authentication: allow_and_create found user #{user.inspect}"
       sign_in_and_redirect user, root_path
