@@ -86,3 +86,8 @@
   margin: .100rem .30rem;
   @extend .my-1;
 }
+.reacted {
+  color: rgb(209, 236, 241);
+  @extend .text-success;
+}
+
