@@ -2,7 +2,7 @@
   <%= g.error_notification %>  
   <%= g.input :name %>  
   <%= g.input :description %>  
-  <%= g.association :color %>  
+  <%= g.association :color, label_method: -> (c) {I18n.t c.name} %>  
   <%= g.association :user %>  
 
   <div class="form-group row">
