@@ -4,15 +4,12 @@
       <%= game_icon(@game) %> 
       <span class="game-title"><%= @game.name.upcase %></span>
       <% if @game.free_feet %><span class="muted"><small>(giro)</small></span><% end %> 
-      <% if policy(@game).edit? %>  
-        <%= link_to '<i class="fas fa-edit mx-2"></i>'.html_safe, edit_game_path(@game), class: "float-right" %>
-      <% end %>
       <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right py-2"%>
     </div>
 
     <div class="game-body m-0 p-0">
       <div id="game-image-div" style="width: 100%; position: relative; z-index: 10;">
-        <% if @game.sketch.attached? %>  
+        <% if Rails.env.production? and @game.sketch.attached? %>  
           <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
         <% else %>
           <%= missing_image_tag %>  
@@ -22,12 +19,34 @@
 
     <div class="game-footer">
       <div>
-        <%= game_reaction(@game, :like) %> 
-        <%= game_reaction(@game, :hard) %>  
-        <%= game_reaction(@game, :soft) %>  
-        <span class="float-right"><small><%= l @game.created_at %></small></span>
+        <% Reaction.each_types do |t| %>
+          <%= ' &nbsp; '.html_safe if t == :working %>  
+          <%= game_reaction(@game, t) %> 
+        <% end %>
+        <div class="dropleft float-right">
+          <button class="btn btn-light ml-3 pt-0" type="button" id="dropdownActionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span style="font-size: 22px"><%= icon "fas fa-ellipsis-v", bold: true %></span>
+          </button>
+          <div class="dropdown-menu bg-light" aria-labelledby="dropdownActionsButton" style="min-width: 260px;">
+            <% if current_user %>  
+              <h6 class="dropdown-header">Azioni</h6>
+              <% if policy(@game).edit? %>  
+                <%= link_to icon('fas fa-edit fa-fw', "modifica"),  edit_game_path(@game), class: "dropdown-item" %>
+              <% end %>
+              <% Reaction.each_types do |t| %>
+                <%= link_to game_reaction_icon(t) + " " + t(t), toggle_game_reactions_path(@game, w: t), remote: true, class: 'dropdown-item' %>
+              <% end %>
+              <%= modal_link_to icon('far fa-comment fa-fw', ' aggiungi un tuo commento'), new_game_comment_path(@game), addclass: 'dropdown-item' %>  
+            <% else %>
+              <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path, class: 'dropdown-item' %>
+            <% end %>
+          </div>
+        </div>
+        <span class="float-right">
+          <small><%= l @game.created_at %></small> 
+        </span>
       </div>
-      <div style="text-align: right">
+      <div style="text-align: right" class="mt-4">
         <% @game.tags.each do |t| %>  
           <span class="tag-item"><%= t "activerecord.attributes.game.#{t}" %></span>
         <% end %>
@@ -37,11 +56,6 @@
   </div>
   <div class="comments">
     <p class="font-weigh-bold">Commenti
-    <% if current_user %>
-      <%= modal_link_to '<i class="far fa-comment"></i>'.html_safe, new_game_comment_path(@game), title: 'Aggiungi un tuo commento' %>  
-    <% else %>
-      <%= modal_link_to '<i class="far fa-comment"></i>'.html_safe, login_path, title: 'Aggiungi un tuo commento' %>  
-    <% end %>
     </p>
     <div class="group-list">
       <% @comments.each do |comment| %>  
@@ -67,6 +81,10 @@ $( document ).ready(function() {
       $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0");
       $(this).css('position', 'fixed').css('left', 0).css('top', 0);
   		$("#game-image").css('max-width', ""); 
+  		<%# $("#game-image").css('max-width', "100%"); %> 
+  		<%# $("#game-image").css('max-width', "100%"); %> 
+  		<%# $("#game-image").css('height', "auto"); %> 
+  		<%# $("#game-image").css('width', "auto"); %> 
     } else if (i == 1) {
       $("body").empty();
       window.location.href = "<%= game_path(@game) %>";
