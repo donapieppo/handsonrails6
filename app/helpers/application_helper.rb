@@ -41,8 +41,8 @@ module ApplicationHelper
     end
   end
 
-  def icon(i, txt='')
-    "<i class='#{i}'></i>".html_safe + ' ' + txt
+  def icon(i, txt='', size: 16, bold: false)
+    "<i class='#{i}' style='font-weigh: #{bold ? 'bold': 'normal'} font-size: #{size}px'></i>".html_safe + ' ' + txt
   end
 
 end
