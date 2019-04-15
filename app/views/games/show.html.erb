@@ -31,12 +31,12 @@
             <% if current_user %>  
               <h6 class="dropdown-header">Azioni</h6>
               <% if policy(@game).edit? %>  
-                <%= link_to icon('fas fa-edit fa-fw', "modifica"),  edit_game_path(@game), class: "dropdown-item" %>
+                <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(@game), class: "dropdown-item" %>
               <% end %>
               <% Reaction.each_types do |t| %>
                 <%= link_to game_reaction_icon(t) + " " + t(t), toggle_game_reactions_path(@game, w: t), remote: true, class: 'dropdown-item' %>
               <% end %>
-              <%= modal_link_to icon('far fa-comment fa-fw', ' aggiungi un tuo commento'), new_game_comment_path(@game), addclass: 'dropdown-item' %>  
+              <%= modal_link_to icon('far fa-comment fa-fw text-muted', ' aggiungi un tuo commento'), new_game_comment_path(@game), addclass: 'dropdown-item' %>  
             <% else %>
               <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path, class: 'dropdown-item' %>
             <% end %>
