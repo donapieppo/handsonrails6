@@ -9,15 +9,32 @@
     <% end %>
   </div>
 
-  <div class="alert alert-info mt-3" style="font-size: 14px">
-    <p>Ultimi commenti: </p>
-    <div>
-      <% @last_comments.each do |comment| %>  
+  <div class="row m-3">
+    <div class="col-md-4">
+      <div class="alert alert-info" style="font-size: 14px;">
+        <p>Ultimi blocchi/giri: </p>
         <div>
-          <small><b><%= comment.user.name %></b></small>: "<%= link_to comment.name, game_path(comment.game_id) %>"
-          <span class="float-right badge badge-info"><%= l comment.created_at %></span>
+          <% @last_games.each do |game| %>  
+            <div>
+              <%= link_to game.name, game_path(game.id) %>
+              <span class="float-right badge badge-info"><%= game.user.name %></span>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="alert alert-info" style="font-size: 14px">
+        <p>Ultimi commenti: </p>
+        <div>
+          <% @last_comments.each do |comment| %>  
+            <div>
+              <small><b><%= comment.user.name %></b></small>: "<%= link_to comment.name, game_path(comment.game_id) %>"
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 </div>
