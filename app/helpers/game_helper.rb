@@ -19,29 +19,27 @@ module GameHelper
     '<i class="far fa-image" style="margin: auto; font-size: 200px"></i>'.html_safe
   end
 
-  def game_reaction_icon(what, muted: false)
-    muted = muted ? 'text-muted' : ''
+  def game_reaction_icon(what, reacted: false)
+    reacted = reacted ? 'reacted' : 'text-muted' 
     icon = case what 
     when :like
-      "fas fa-heart"
+      "fas fa-heart fa-fw"
     when :hard
-      "fas fa-pepper-hot"
+      "fas fa-pepper-hot fa-fw"
     when :soft
-      "fas fa-baby" 
+      "fas fa-feather-alt fa-fw" 
+    when :working
+      'fas fa-lock-open fa-fw'
+    when :sent
+      'fas fa-lock fa-fw'
     end
-    content_tag(:i, '', class: "#{icon} #{muted} m-1", id: what.to_s)
+    content_tag(:i, '', class: "#{icon} #{reacted}", id: what.to_s)
   end
 
-  def game_reaction(game, what, editable: true)
+  def game_reaction(game, what)
     num = game.cache_reactions_count what
-    icon = game_reaction_icon(what, muted: (! current_user || ! current_user.has_reactions?(game, what)))
-    if editable and current_user 
-      link_to(icon, toggle_game_reactions_path(game, w: what), remote: true) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
-    elsif editable
-      link_to(icon, login_path, title: "Prima di commentare ti chiediamo di accedere (menu / accedi).") + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
-    else
-      content_tag :span, icon + " #{num}", title: "Per commentare visulizza il blocco cliccando sull'immagine."
-    end
+    icon = game_reaction_icon(what, reacted: (current_user && current_user.has_reactions?(game, what)))
+    content_tag(:span, icon) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
   end
 end
 
