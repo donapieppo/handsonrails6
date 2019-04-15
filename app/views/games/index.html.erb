@@ -16,9 +16,9 @@
         <% end %>
       </div>
       <div class="card-footer bg-light">
-        <%= game_reaction(game, :like, editable: false) %> 
-        <%= game_reaction(game, :hard, editable: false) %>  
-        <%= game_reaction(game, :soft, editable: false) %>  
+        <% Reaction.each_types do |t| %>
+          <%= game_reaction(game, t) %> 
+        <% end %>
         <small><%= link_to "by #{game.user.name}", games_path(user_id: game.user_id), class: "badge badge-info float-right py-2"%></small>
       </div>
     </div>
