@@ -2,8 +2,9 @@ class Reaction < ApplicationRecord
   belongs_to :user
   belongs_to :game
 
-  @@rtypes = [:like, :soft, :hard]
+  @@rtypes = [:like, :hard, :soft, :working, :sent]
 
+  before_save :check_hard_and_soft
   after_save :update_game_reactions_cache
   after_destroy :update_game_reactions_cache
 
@@ -14,6 +15,14 @@ class Reaction < ApplicationRecord
   def self.each_types
     @@rtypes.each do |t|
       yield t
+    end
+  end
+
+  def check_hard_and_soft
+    if self.name == 'hard'
+      Reaction.where(user_id: self.user_id, game_id: self.game.id, name: 'soft').destroy_all
+    elsif self.name == 'soft'
+      Reaction.where(user_id: self.user_id, game_id: self.game.id, name: 'hard').destroy_all
     end
   end
 
