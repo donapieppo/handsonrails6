@@ -38,3 +38,8 @@ it:
         two_hands_start: 'Entrambe le mani sulla presa di partenza.'
 
   
+  like: mi piace
+  hard: mi sembra duro per il suo colore
+  soft: mi sembra semplice per il suo colore
+  working: ho iniziato a provarlo
+  sent: CHIUSO
