@@ -3,16 +3,23 @@ class ApplicationController < ActionController::Base
 
   I18n.locale = :it
 
-  helper_method :current_user, :user_admin?, :user_admin!, :user_manager?, :user_manager!, :modal_page?
+  helper_method :current_user, :current_organization, :user_admin?, :user_admin!, :user_manager?, :user_manager!, :modal_page?
 
   before_action :log_current_user
 
   def current_user
+    if false or Rails.env.development? 
+      session[:user_id] = 2
+    end
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])
     else
       nil
     end
+  end
+
+  def current_organization
+    Organization.find(1)
   end
 
   def log_current_user
