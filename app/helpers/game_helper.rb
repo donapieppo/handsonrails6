@@ -4,9 +4,9 @@ module GameHelper
 
   def game_icon(game)
     if game.competition
-      content_tag(:i, '', class: 'fas fa-trophy', style: "font-size: 18px; background-color: #{game.color.name}") 
+      content_tag(:i, '', class: 'fas fa-trophy p-2', style: "font-size: 21px; border: 4px solid #{game.color.name}") 
     else
-      content_tag(:i, '', class: 'fas fa-circle', style: "font-size: 18px; color: #{game.color.name}") 
+      content_tag(:i, '', class: 'fas fa-circle p-2', style: "font-size: 21px; color: #{game.color.name}") 
     end
   end
 
@@ -33,13 +33,18 @@ module GameHelper
     when :sent
       'fas fa-lock fa-fw'
     end
-    content_tag(:i, '', class: "#{icon} #{reacted}", id: what.to_s)
+    content_tag(:i, '', class: "#{what.to_s}_icon #{icon} #{reacted}")
+  end
+
+  def link_to_game_reaction(game, what)
+    icon = game_reaction_icon(what, reacted: (current_user && current_user.has_reactions?(game, what)))
+    link_to icon + " " + t(what), toggle_game_reactions_path(game, w: what), remote: true, class: 'dropdown-item'
   end
 
   def game_reaction(game, what)
     num = game.cache_reactions_count what
     icon = game_reaction_icon(what, reacted: (current_user && current_user.has_reactions?(game, what)))
-    content_tag(:span, icon) + "<span id='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
+    content_tag(:span, icon) + "<span class='#{what.to_s}_num'>#{num.to_i}</span>".html_safe
   end
 end
 
