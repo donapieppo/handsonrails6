@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.index ["user_id"], name: "user_id"
   end
 
+  create_table "organizations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "city"
+    t.string "home_page"
+    t.string "logo_image"
+  end
+
   create_table "reactions", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", null: false, unsigned: true
     t.integer "game_id", null: false, unsigned: true
