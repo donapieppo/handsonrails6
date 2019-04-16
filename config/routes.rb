@@ -15,10 +15,11 @@ Rails.application.routes.draw do
   end
   resources :comments
 
-  get 'login', to: 'logins#index', as: :login
-  get 'logins/logout',               to: 'logins#logout',    as: :logout
+  get 'login',                       to: 'logins#index',  as: :login
+  get 'logins/logout',               to: 'logins#logout', as: :logout
   get 'auth/google_oauth2',          as: 'google_login'
   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
 
+  get 'ping', to: 'home#ping', as: :ping
   root to: 'home#index'
 end
