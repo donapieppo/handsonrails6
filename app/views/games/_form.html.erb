@@ -3,7 +3,9 @@
   <%= g.input :name %>  
   <%= g.input :description %>  
   <%= g.association :color, label_method: -> (c) {I18n.t c.name} %>  
-  <%= g.association :user %>  
+  <% if user_admin? %>  
+    <%= g.association :user %>  
+  <% end %>
 
   <div class="form-group row">
     <% if user_manager? %>  
