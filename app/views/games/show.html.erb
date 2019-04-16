@@ -4,12 +4,13 @@
       <%= game_icon(@game) %> 
       <span class="game-title"><%= @game.name.upcase %></span>
       <% if @game.free_feet %><span class="muted"><small>(giro)</small></span><% end %> 
-      <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right py-2"%>
+      <%= render 'games/actions', game: @game %>  
     </div>
 
     <div class="game-body m-0 p-0">
       <div id="game-image-div" style="width: 100%; position: relative; z-index: 10;">
-        <% if Rails.env.production? and @game.sketch.attached? %>  
+        <%# <% if Rails.env.production? and @game.sketch.attached? %1> %>  
+        <% if @game.sketch.attached? %>  
           <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
         <% else %>
           <%= missing_image_tag %>  
@@ -18,35 +19,21 @@
     </div>
 
     <div class="game-footer">
-      <div>
-        <% Reaction.each_types do |t| %>
-          <%= ' &nbsp; '.html_safe if t == :working %>  
-          <%= game_reaction(@game, t) %> 
-        <% end %>
-        <div class="dropleft float-right">
-          <button class="btn btn-light ml-3 pt-0" type="button" id="dropdownActionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span style="font-size: 22px"><%= icon "fas fa-ellipsis-v", bold: true %></span>
-          </button>
-          <div class="dropdown-menu bg-light" aria-labelledby="dropdownActionsButton" style="min-width: 260px;">
-            <% if current_user %>  
-              <h6 class="dropdown-header">Azioni</h6>
-              <% if policy(@game).edit? %>  
-                <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(@game), class: "dropdown-item" %>
-              <% end %>
-              <% Reaction.each_types do |t| %>
-                <%= link_to game_reaction_icon(t) + " " + t(t), toggle_game_reactions_path(@game, w: t), remote: true, class: 'dropdown-item' %>
-              <% end %>
-              <%= modal_link_to icon('far fa-comment fa-fw text-muted', ' aggiungi un tuo commento'), new_game_comment_path(@game), addclass: 'dropdown-item' %>  
-            <% else %>
-              <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path, class: 'dropdown-item' %>
-            <% end %>
-          </div>
+      <div class="row">
+        <div class="col">
+          <% Reaction.each_types do |t| %>
+            <%= ' &nbsp; &nbsp; &nbsp; <br/>'.html_safe if t == :working %>  
+            <%= game_reaction(@game, t) %> 
+          <% end %>
         </div>
-        <span class="float-right">
-          <small><%= l @game.created_at %></small> 
-        </span>
+        <div class="col">
+          <span class="float-right">
+            <small><%= l @game.created_at %></small> 
+            <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right ml-2 mt-1" %>
+          </span>
+        </div>
       </div>
-      <div style="text-align: right" class="mt-4">
+      <div style="text-align: right" class="">
         <% @game.tags.each do |t| %>  
           <span class="tag-item"><%= t "activerecord.attributes.game.#{t}" %></span>
         <% end %>
@@ -55,8 +42,7 @@
     </div>
   </div>
   <div class="comments">
-    <p class="font-weigh-bold">Commenti
-    </p>
+    <p class="font-weigh-bold">Commenti</p>
     <div class="group-list">
       <% @comments.each do |comment| %>  
         <div class="group-list-item">
