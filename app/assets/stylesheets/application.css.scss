@@ -11,6 +11,10 @@
   @extend .dropdown-menu-right;
   background-color: rgb(209, 236, 241);
 }
+.btn-login {
+  @extend .btn;
+  background-color: rgb(209, 236, 241);
+}
 .home-button {
   @extend .btn;
   @extend .btn-lg;
@@ -24,7 +28,7 @@
 }
 .games-list {
   .card {
-    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 25px 0 rgba(0,0,0,0.19);  
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 6px 12px 0 rgba(0,0,0,0.19);  
   }
   @extend .card-columns;
   column-count: 1;
@@ -34,6 +38,7 @@
   }
 }
 .game {
+  @extend .mb-5;
   .game-card {
     margin: auto;
     @extend .card;
