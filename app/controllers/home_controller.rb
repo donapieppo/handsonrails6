@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     end
     @last_comments = Comment.order('comments.created_at desc').includes(:user).limit(5)
     unless user_manager?
-      @last_comments = @last_comments.where(comments.competition: false)
+      @last_comments = @last_comments.where('comments.competition != 1')
     end
   end
 
