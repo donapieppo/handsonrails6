@@ -9,7 +9,8 @@ class Game < ApplicationRecord
   serialize :cache_reactions_counts, Hash
   serialize :tags, Array
 
-  validates :name, uniqueness: { scope: [:organization_id], message: "C'è già un blocco con questo nome." }
+  # validates :name, uniqueness: { scope: [:organization_id], message: "C'è già un blocco con questo nome." }
+  validates :name, uniqueness: { message: "C'è già un blocco con questo nome." }
   before_save :clean_tags
 
   @@possible_tags = [:sit_start, :two_hands_start, :free_feet]
