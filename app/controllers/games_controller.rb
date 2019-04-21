@@ -9,7 +9,7 @@ class GamesController < ApplicationController
       @games = @games.where(user_id: params[:user_id]).order('games.created_at desc, games.name')
     end
     if params[:competition] and user_manager?
-      @games = @games.where(competition: true).order('games.color_id')
+      @games = @games.where(competition: true).order('games.color_id, games.name')
     end
     unless user_manager?
       @games = @games.to_show_to_anyone
@@ -18,6 +18,10 @@ class GamesController < ApplicationController
 
   def show
     @comments = @game.comments.includes(:user).order(:updated_at)
+    respond_to do |format|
+      format.html
+      # format.json {render json: @game.to_json(include: :user, only: [:id, :name]) }
+    end
   end
 
   def new
@@ -32,7 +36,6 @@ class GamesController < ApplicationController
     if @game.save
       redirect_to game_path(@game)
     else
-      raise @game.errors.inspect
       render action: :new
     end
   end
