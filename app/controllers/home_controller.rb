@@ -5,9 +5,9 @@ class HomeController < ApplicationController
     unless user_manager?
       @last_games = @last_games.to_show_to_anyone
     end
-    @last_comments = Comment.order('comments.created_at desc').includes(:user).limit(5)
+    @last_comments = Comment.order('comments.created_at desc').includes(:game, :user).limit(5)
     unless user_manager?
-      @last_comments = @last_comments.where('comments.competition != 1')
+      @last_comments = @last_comments.where('games.competition != 1')
     end
   end
 
