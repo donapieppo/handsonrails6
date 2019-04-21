@@ -11,20 +11,21 @@
 
   <div class="row m-3">
     <div class="col-md-4">
-      <div class="alert alert-info" style="font-size: 14px;">
+      <div class="" style="font-size: 14px;">
         <p>Ultimi blocchi/giri: </p>
         <div>
           <% @last_games.each do |game| %>  
             <div>
+              <%= content_tag(:i, '', class: 'fas fa-circle', style: "font-size: 16px; color: #{game.color.name}") %>
               <%= link_to game.name, game_path(game.id) %>
-              <span class="float-right badge badge-info"><%= game.user.name %></span>
+              <span class="float-right"><small><b><%= game.user.name %></b></small></span>
             </div>
           <% end %>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="alert alert-info" style="font-size: 14px">
+      <div class="" style="font-size: 14px">
         <p>Ultimi commenti: </p>
         <div>
           <% @last_comments.each do |comment| %>  
@@ -37,11 +38,6 @@
     </div>
     <% if current_user %>  
       <div class="col-md-4">
-        <div class="alert alert-info" style="font-size: 14px">
-          <p><%= current_user.name %>:</p>
-          <div>
-          </div>
-        </div>
       </div>
     <% end %>
   </div>
