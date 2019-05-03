@@ -8,7 +8,7 @@
     </div>
 
     <div class="game-body m-0 p-0">
-      <div id="game-image-div" style="width: 100%; position: relative; z-index: 10;">
+      <div id="game-image-div" style="width: 100%">
         <%# <% if Rails.env.production? and @game.sketch.attached? %1> %>  
         <% if @game.sketch.attached? %>  
           <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
@@ -55,31 +55,22 @@
     </div>
   </div>
 </div>
+<% if @game.sketch.attached? %>  
+  <div id="only-image" style="display: none; width: 100%" class="container">
+    <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto' %>  
+  </div>
+<% end %>
 
 <%= javascript_tag do %>  
 $( document ).ready(function() {
-  var i = 0;
-  $(".btn").on('click', function () { 
-    $("#game-image-div").css('display', 'block');
+  $("#game-image").on('click', function () { 
+    $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=4.0");
+    $(".game").hide();
+    $("#only-image").show();
   });
-  $("#game-image-div").on('click', function () { 
-    if (i == 0) {
-      $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0");
-      $(this).css('position', 'fixed').css('left', 0).css('top', 0);
-  		$("#game-image").css('max-width', ""); 
-  		<%# $("#game-image").css('max-width', "100%"); %> 
-  		<%# $("#game-image").css('max-width', "100%"); %> 
-  		<%# $("#game-image").css('height', "auto"); %> 
-  		<%# $("#game-image").css('width', "auto"); %> 
-    } else if (i == 1) {
-      $("body").empty();
-      window.location.href = "<%= game_path(@game) %>";
-      <%# $('meta[name=viewport]').attr('content', "width=device-width, minimum-scale=1.0, maximum-scale=1.0"); %>
-      <%# $(this).css('position', 'relative'); %>
-  		<%# $("#game-image").width("100%"); %> 
-  		<%# $("#game-image").css('margin', 'auto'); %> 
-    };
-    i = (i + 1) % 2;
+  $("#only-image").on('click', function () { 
+    $("body").empty();
+    window.location.href = "<%= game_path(@game) %>";
 	});
 })
 <% end %>
