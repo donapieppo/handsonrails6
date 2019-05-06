@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <title>Prese su blocchi</title>
+  </head>
+  <body>
+    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+    <script type="module" src="./holds_pinning_lib.js"></script>
+    <script type="module">
+       import { HoldPinner } from './holds_pinning_lib.js';
+
+    	 var hold_pinner = new HoldPinner(900, 400);
+
+       document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
+       document.querySelector('#top_hold_btn').addEventListener('click', top_hold)
+       document.querySelector('#common_hold_btn').addEventListener('click', common_hold)
+       document.querySelector('#save_btn').addEventListener('click', save_holds)
+
+       function start_hold() {
+         hold_pinner.start_hold();
+       }
+       function top_hold() {
+         hold_pinner.top_hold();
+       }
+       function common_hold() {
+         hold_pinner.common_point();
+       }
+       function save_holds() {
+         var result = hold_pinner.get_holds();
+         console.log(result);
+       }
+  	</script>
+    <div>
+      <button id="start_hold_btn">Presa/e di partenza</button>
+      <button id="common_hold_btn">Altre prese</button>
+      <button id="top_hold_btn">TOP</button>
+      <button id="save_btn">Save</button>
+    </div>
+    <div id="canvasDiv" style="border: 1px solid red"></div>
+  </body>
+</html>
