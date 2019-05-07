@@ -9,7 +9,7 @@
     <script type="module">
        import { Hold, HoldPinner } from './holds_pinning_lib.js';
 
-    	 var hold_pinner = new HoldPinner('./test.jpg', 1024, 1024);
+    	 var hold_pinner = new HoldPinner('canvasDiv', './test.jpg', 1024, 1024);
 
        document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
        document.querySelector('#top_hold_btn').addEventListener('click', top_hold)
