@@ -5,7 +5,6 @@
     <title>Prese su blocchi</title>
   </head>
   <body>
-    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
     <script type="module" src="./holds_pinning_lib.js"></script>
     <script type="module">
        import { HoldPinner } from './holds_pinning_lib.js';
@@ -18,13 +17,13 @@
        document.querySelector('#save_btn').addEventListener('click', save_holds)
 
        function start_hold() {
-         hold_pinner.start_hold();
+         hold_pinner.change_hold_type('start');
        }
        function top_hold() {
-         hold_pinner.top_hold();
+         hold_pinner.change_hold_type('top');
        }
        function common_hold() {
-         hold_pinner.common_point();
+         hold_pinner.change_hold_type('hold');
        }
        function save_holds() {
          var result = hold_pinner.get_holds();

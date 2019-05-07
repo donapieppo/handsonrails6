@@ -17,17 +17,17 @@ export class HoldPinner {
     this.canvas.addEventListener("touchstart", this.add_hold.bind(this), false);
     this.canvas.addEventListener("click", this.add_hold.bind(this), false);
 
-    this.results = { 'start': [], 'top': [], 'point': [] };
-    this.hold_type = 'point';
-    this.color = 'rgba(123, 255, 255, 0.5)';
+    this.colors  = { 'start': 'rgba(123, 123, 123, 0.5)', 'top': 'rgba(123, 1, 123, 0.5)', 'hold': 'rgba(123, 123, 1, 0.5)' };
+    this.results = { 'start': [], 'top': [], 'hold': [] };
+
+    // start with default
+    this.hold_type = 'hold';
+    this.color = this.colors[this.hold_type];
   }
 
   add_hold(e) {
     console.log("IN add_hold");
     console.log(e);
-    console.log(e.x);
-    console.log(e.y);
-    console.log("color=" + this.color);
 
     this.context.beginPath();
     this.context.arc(e.x - this.x0, e.y - this.y0, 20, 0, 2 * Math.PI);
@@ -36,25 +36,14 @@ export class HoldPinner {
     this.context.fill();
 
     this.results[this.hold_type].push([e.x, e.y]);
-    console.log("results=" + this.results);
     console.log(this.results);
   }
 
-  start_hold()  {
-    this.hold_type = 'start';
-    this.color = 'rgba(123, 123, 123, 0.5)';
+  change_hold_type(t)  {
+    this.hold_type = t;
+    this.color = this.colors[t];
   }
   
-  top_hold() {
-    this.hold_type = 'top';
-    this.color = 'rgba(255, 255, 123, 0.5)';
-  }
-  
-  common_point() {
-    this.hold_type = 'point';
-    this.color = 'rgba(255, 123, 255, 0.5)';
-  }
-
   get_holds() {
     return this.results;
   }
