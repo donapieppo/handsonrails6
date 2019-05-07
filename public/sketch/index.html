@@ -7,14 +7,16 @@
   <body>
     <script type="module" src="./holds_pinning_lib.js"></script>
     <script type="module">
-       import { HoldPinner } from './holds_pinning_lib.js';
+       import { Hold, HoldPinner } from './holds_pinning_lib.js';
 
-    	 var hold_pinner = new HoldPinner(900, 400);
+    	 var hold_pinner = new HoldPinner('./test.jpg', 1024, 1024);
 
        document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
        document.querySelector('#top_hold_btn').addEventListener('click', top_hold)
        document.querySelector('#common_hold_btn').addEventListener('click', common_hold)
+       document.querySelector('#bigger_hold_btn').addEventListener('click', bigger_hold)
        document.querySelector('#save_btn').addEventListener('click', save_holds)
+       document.querySelector('#clear_btn').addEventListener('click', clear_holds)
 
        function start_hold() {
          hold_pinner.change_hold_type('start');
@@ -25,16 +27,25 @@
        function common_hold() {
          hold_pinner.change_hold_type('hold');
        }
+       function bigger_hold() {
+         hold_pinner.bigger_hold();
+       }
        function save_holds() {
          var result = hold_pinner.get_holds();
          console.log(result);
+         console.log(JSON.stringify(result));
+       }
+       function clear_holds() {
+         hold_pinner.clear_holds();
        }
   	</script>
     <div>
       <button id="start_hold_btn">Presa/e di partenza</button>
       <button id="common_hold_btn">Altre prese</button>
       <button id="top_hold_btn">TOP</button>
+      <button id="bigger_hold_btn">BIGGER</button>
       <button id="save_btn">Save</button>
+      <button id="clear_btn">Clear</button>
     </div>
     <div id="canvasDiv" style="border: 1px solid red"></div>
   </body>
