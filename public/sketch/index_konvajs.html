@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <title>Prese su blocchi</title>
+    <script src="https://unpkg.com/konva@3.2.4/konva.min.js"></script>
+  </head>
+  <body>
+    <script type="module" src="./holds_pinning_lib.konvajs.js"></script>
+    <script type="module">
+       import { Hold, HoldPinner } from './holds_pinning_lib.konvajs.js';
+
+    	 var hold_pinner = new HoldPinner(1024, 1024);
+
+       document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
+       document.querySelector('#top_hold_btn').addEventListener('click', top_hold)
+       document.querySelector('#common_hold_btn').addEventListener('click', common_hold)
+       document.querySelector('#save_btn').addEventListener('click', save_holds)
+
+       function start_hold() {
+         hold_pinner.change_hold_type('start');
+       }
+       function top_hold() {
+         hold_pinner.change_hold_type('top');
+       }
+       function common_hold() {
+         hold_pinner.change_hold_type('hold');
+       }
+       function save_holds() {
+         var result = hold_pinner.get_holds();
+         console.log(JSON.stringify(result));
+         let myRequest = new Request('/blocchi/games/1/pinnings.js', 
+           { 
+             method: 'POST', 
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify(result)
+           }
+         );
+         fetch(myRequest).then(function(response) {
+           console.log(response);
+         });
+       }
+  	</script>
+    <div>
+      <button id="start_hold_btn">Presa/e di partenza</button>
+      <button id="common_hold_btn">Altre prese</button>
+      <button id="top_hold_btn">TOP</button>
+      <button id="save_btn">Save</button>
+    </div>
+    <div id="canvasDiv" style="border: 1px solid red; background: url('./test2.jpg')"></div>
+  </body>
+</html>
