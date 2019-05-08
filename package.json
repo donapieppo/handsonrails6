@@ -12,6 +12,14 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.15.3",
     "webpack-dev-server": "^3.2.1"
+  },
+  "scripts": {
+    "lint": "eslint"
   }
 }
