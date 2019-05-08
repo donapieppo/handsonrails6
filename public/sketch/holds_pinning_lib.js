@@ -12,27 +12,23 @@ export class Hold {
     return this.colors[this.hold_type];
   }
 
-  draw(canvas, width) {
-    var context = canvas.getContext("2d"); 
-
-    var x0 = this.x - window.scrollX;
-    var y0 = this.y - window.scrollY;
-
-    context.beginPath();
-    context.lineWidth = "8";
-    context.strokeStyle = this.color();
-    context.arc(x0, y0, width, 0, 2 * Math.PI);
-    context.closePath();
-    context.stroke();
+  draw(ctx, width) {
+    ctx.beginPath();
+    ctx.lineWidth = "8";
+    ctx.strokeStyle = this.color();
+    ctx.arc(this.x, this.y, width, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.stroke();
 
     //if (this.hold_type == 'start' || this.hold_type == 'top') {
-      context.font = "16px Arial";
-      context.fillText(this.hold_type, x0 + 30, y0 - 15); 
-      context.fillText(this.x + ":" + this.y, x0 + 30, y0 + 15); 
+      ctx.font = "16px Arial";
+      ctx.fillText(this.hold_type, this.x + 30, this.y - 15); 
+      ctx.fillText(this.x + ":" + this.y, this.x + 30, this.y + 15); 
+      ctx.fillText(this.x + ":" + this.y, this.x - 80, this.y - 15); 
     //}
   }
 
-  delete(context, x0, y0, width) {
+  delete(ctx, x, y, width) {
   }
 }
 
@@ -50,10 +46,7 @@ export class HoldPinner {
     this.canvas.setAttribute('id', 'canvas');
     document.getElementById('canvasDiv').appendChild(this.canvas);
 
-    this.context = this.canvas.getContext("2d"); 
-
-    this.x0 = this.canvas.getBoundingClientRect().left;
-    this.y0 = this.canvas.getBoundingClientRect().top;
+    this.ctx = this.canvas.getContext("2d"); 
 
     this.canvas.addEventListener("touchstart", this.add_hold.bind(this), false);
     this.canvas.addEventListener("click", this.add_hold.bind(this), false);
@@ -66,18 +59,18 @@ export class HoldPinner {
   }
 
   add_hold(e) {
-    console.log("adding hold");
-    console.log(this.canvas.getBoundingClientRect().top);
-    // console.log(e);
+    console.log("adding hold from event e.x, e.y:" + e.x + ':' + e.y);
+    console.log("left: " + this.canvas.getBoundingClientRect().left + " top: " + this.canvas.getBoundingClientRect().top);
 
-    var x = e.x - this.canvas.getBoundingClientRect().left + window.scrollX;
-    var y = e.y - this.canvas.getBoundingClientRect().top + window.scrollY ;
+    var x = e.x - this.canvas.getBoundingClientRect().left;
+    var y = e.y - this.canvas.getBoundingClientRect().top;
 
     var hold = new Hold(x, y, this.selected_hold_type)
+    console.log("new hold: hold.x=" + hold.x +  " hold.y=" + hold.y);
 
     this.actual_hold = hold;
 
-    hold.draw(this.canvas, this.hold_size);
+    hold.draw(this.ctx, this.hold_size);
 
     this.results[hold.hold_type].push([hold.x, hold.y]);
     console.log(this.results);
@@ -89,7 +82,7 @@ export class HoldPinner {
   
   bigger_hold() {
     this.actual_hold.delete;
-    this.actual_hold.draw(this.context, this.x0, this.y0, this.hold_size * 2);
+    this.actual_hold.draw(this.ctx, this.x0, this.y0, this.hold_size * 2);
   }
 
   get_holds() {
@@ -97,7 +90,7 @@ export class HoldPinner {
   }
 
   clear_holds() {
-    this.context.clearRect(0, 0, this.width, this.height);
+    this.ctx.clearRect(0, 0, this.width, this.height);
     this.results = { 'start': [], 'top': [], 'hold': [] };
   }
 }
