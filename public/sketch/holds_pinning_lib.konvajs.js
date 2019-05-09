@@ -36,12 +36,12 @@ export class HoldLabel {
     );
 
     this.label.on('dragend', () => {
-      if (this.label.attrs.x < 10) {
+      if (this.label.x() < 10) {
         this.x = 0;
         this.y = 0;
       } else {
-        this.x = this.label.attrs.x;
-        this.y = this.label.attrs.y;
+        this.x = this.label.x();
+        this.y = this.label.y();
       }
     });
   }
@@ -51,11 +51,12 @@ export class HoldLabel {
     this.y = y;
     this.label.x(this.x - 120);
     this.label.y(this.y - 15);
+    this.label.draw();
   }
 
   // to delete having pin from konvajs and anyway only one hold in a x:y
   hold_label_key() {
-    return (`${this.label.attrs.x}:${this.label.attrs.y}`);
+    return (`${this.label.x()}:${this.label.y()}`);
   }
 }
 
@@ -89,12 +90,12 @@ export class Hold {
     }
 
     this.pin.on('dragend', () => {
-      if (this.pin.attrs.x < 10) {
+      if (this.pin.x() < 10) {
         this.x = 0;
         this.y = 0;
       } else {
-        this.x = this.pin.attrs.x;
-        this.y = this.pin.attrs.y;
+        this.x = this.pin.x();
+        this.y = this.pin.y();
       }
     });
   }
@@ -105,7 +106,7 @@ export class Hold {
 
   // to delete having pin from konvajs and anyway only one hold in a x:y
   hold_key() {
-    return (`${this.pin.attrs.x}:${this.pin.attrs.y}`);
+    return (`${this.pin.x()}:${this.pin.y()}`);
   }
 }
 
@@ -168,7 +169,6 @@ export class HoldPinner {
       // FIXME: pull out of here this code, probably use a label inside Hold is a better choice.
       hold.pin.on('dragmove', () => {
         hold_label.move(hold.pin.x(), hold.pin.y());
-        hold_label.label.draw();
       });
     }
     return hold;
