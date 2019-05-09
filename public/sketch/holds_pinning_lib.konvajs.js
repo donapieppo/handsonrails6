@@ -1,7 +1,7 @@
-const colors = { 
-  'start': 'rgba(123, 123, 123, 0.9)', 
-  'top':   'rgba(123, 1, 123, 0.9)', 
-  'hold':  'rgba(123, 123, 1, 0.9)' 
+const colors = {
+  start: 'rgba(123, 123, 123, 0.9)',
+  top: 'rgba(123, 1, 123, 0.9)',
+  hold: 'rgba(123, 123, 1, 0.9)',
 };
 
 export class HoldLabel {
@@ -10,12 +10,14 @@ export class HoldLabel {
     this.y = y;
     this.label_type = label_type;
 
-    const common = { x: this.x, y: this.y, strokeWidth: 8, stroke: 'blue', draggable: true };
+    const common = {
+      x: this.x, y: this.y, strokeWidth: 8, stroke: 'blue', draggable: true,
+    };
 
     this.label = new Konva.Label({
       x: this.x - 120,
       y: this.y - 15,
-      opacity: 0.75, 
+      opacity: 0.75,
       draggable: true,
     });
 
@@ -26,14 +28,14 @@ export class HoldLabel {
         fontSize: 38,
         padding: 5,
         fill: 'black',
-        align: 'right'
-      })
+        align: 'right',
+      }),
     );
     this.label.add(
       new Konva.Tag({
         fill: 'yellow',
-        cornerRadius: 5
-      })
+        cornerRadius: 5,
+      }),
     );
 
     this.label.on('dragend', () => {
@@ -49,27 +51,28 @@ export class HoldLabel {
 }
 
 export class Hold {
-
   constructor(x, y, hold_type) {
     this.x = x;
     this.y = y;
     this.hold_type = hold_type;
 
-    const common = { x: this.x, y: this.y, strokeWidth: 8, stroke: this.color(), draggable: true }
+    const common = {
+      x: this.x, y: this.y, strokeWidth: 8, stroke: this.color(), draggable: true,
+    };
 
     if (hold_type == 'start') {
       this.pin = new Konva.Star({
-        ...common, ... { numPoints: 6, innerRadius: 30, outerRadius: 50 }
+        ...common, ...{ numPoints: 6, innerRadius: 30, outerRadius: 50 },
       });
     } else if (hold_type == 'hold') {
       this.pin = new Konva.Circle({
-        ...common, ... { radius: 30 }
+        ...common, ...{ radius: 30 },
       });
     } else if (hold_type == 'top') {
       this.pin = new Konva.Star({
-        ...common, ... { numPoints: 6, innerRadius: 30, outerRadius: 50 }
+        ...common, ...{ numPoints: 6, innerRadius: 30, outerRadius: 50 },
       });
-    } 
+    }
 
     this.pin.on('dragend', () => {
       this.x = this.pin.attrs.x;
@@ -88,7 +91,6 @@ export class Hold {
 }
 
 export class HoldPinner {
-
   constructor(width, height) {
     this.width = width;
     this.height = height;
@@ -98,11 +100,11 @@ export class HoldPinner {
 
     this.valid = false;
     this.dragging = false;
-    
+
     this.stage = new Konva.Stage({
-       container: 'canvasDiv', 
-       width:  this.width,
-       height: this.height
+      container: 'canvasDiv',
+      width: this.width,
+      height: this.height,
     });
 
     this.layer = new Konva.Layer();
@@ -115,19 +117,19 @@ export class HoldPinner {
 
   add_hold(e) {
     console.log(e);
-    console.log("adding hold from event e.x, e.y:" + e.evt.layerX + ':' + e.evt.layerY);
+    console.log(`adding hold from event e.x, e.y:${e.evt.layerX}:${e.evt.layerY}`);
 
-    const x = e.evt.layerX 
-    const y = e.evt.layerY
+    const x = e.evt.layerX;
+    const y = e.evt.layerY;
 
-    const hold = new Hold(x, y, this.selected_hold_type)
+    const hold = new Hold(x, y, this.selected_hold_type);
     console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.hold_type}`);
 
     this.actual_hold = hold;
 
     this.layer.add(hold.pin).draw();
     if (hold.hold_type != 'hold') {
-      const hold_label = new HoldLabel(x, y, this.selected_hold_type)
+      const hold_label = new HoldLabel(x, y, this.selected_hold_type);
       this.layer.add(hold_label.label).draw();
     }
 
@@ -135,17 +137,16 @@ export class HoldPinner {
     console.log(this.holds);
   }
 
-  change_hold_type(th)  {
+  change_hold_type(th) {
     this.selected_hold_type = th;
   }
-  
+
   get_holds() {
     console.log(this.holds);
-    return Object.keys(this.holds).map((h_k) => { 
-      return { x: this.holds[h_k].x, 
-               y: this.holds[h_k].y, 
-               hold_type: this.holds[h_k].hold_type }
-    });
+    return Object.keys(this.holds).map(h_k => ({
+      x: this.holds[h_k].x,
+      y: this.holds[h_k].y,
+      hold_type: this.holds[h_k].hold_type,
+    }));
   }
 }
-
