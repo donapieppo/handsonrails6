@@ -9,9 +9,9 @@
 
     <div class="game-body m-0 p-0">
       <div id="game-image-div" style="width: 100%">
-        <%# <% if Rails.env.production? and @game.sketch.attached? %1> %>  
-        <% if @game.sketch.attached? %>  
-          <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
+        <%# <% if Rails.env.production? and @game.image.attached? %1> %>  
+        <% if @game.image.attached? %>  
+          <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
         <% else %>
           <%= missing_image_tag %>  
         <% end %>
@@ -55,9 +55,9 @@
     </div>
   </div>
 </div>
-<% if @game.sketch.attached? %>  
+<% if @game.image.attached? %>  
   <div id="only-image" style="display: none; width: 100%" class="container">
-    <%= image_tag @game.sketch, style: 'display: block; width: 100%; margin: auto' %>  
+    <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto' %>  
   </div>
 <% end %>
 
@@ -69,6 +69,7 @@ $( document ).ready(function() {
     $("#only-image").show();
   });
   $("#only-image").on('click', function () { 
+    $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0");
     $("body").empty();
     window.location.href = "<%= game_path(@game) %>";
 	});
