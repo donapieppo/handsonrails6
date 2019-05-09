@@ -153,7 +153,7 @@ export class HoldPinner {
     this.layer.add(hold.pin).draw();
     this.result.push(hold);
 
-    if (hold.type != 'hold') {
+    if (hold.type !== 'hold') {
       const hold_label = new HoldLabel(x, y, hold_type);
       this.layer.add(hold_label.label).draw();
       this.result.push(hold_label);
@@ -167,7 +167,7 @@ export class HoldPinner {
 
   get_holds() {
     console.log(this.result);
-    return this.result.filter(h => h.x != 0).map(h => ({
+    return this.result.filter(h => h.x !== 0).map(h => ({
       c: h.constructor.name, x: h.x, y: h.y, type: h.type,
     }));
   }
