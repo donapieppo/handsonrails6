@@ -34,4 +34,12 @@ class GamePolicy
   def destroy?
     edit?
   end
+
+  def edit_pinnings?
+    edit?
+  end
+
+  def pinnings?
+    edit?
+  end
 end
