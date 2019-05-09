@@ -103,7 +103,8 @@ export class Hold {
 }
 
 export class HoldPinner {
-  constructor(width, height) {
+  constructor(target, width, height) {
+    this.target = target;
     this.width = width;
     this.height = height;
     this.actual_hold_type = 'start';
@@ -114,7 +115,7 @@ export class HoldPinner {
     this.dragging = false;
 
     this.stage = new Konva.Stage({
-      container: 'canvasDiv',
+      container: target,
       width: this.width,
       height: this.height,
     });

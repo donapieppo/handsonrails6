@@ -19,7 +19,7 @@
          { x: 709, y: 100, type: 'top' },
        ];
 
-       var hold_pinner = new HoldPinner(1024, 1024);
+       var hold_pinner = new HoldPinner('canvasDiv', 1024, 1024);
        hold_pinner.setup(startingHolds);
 
        document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
@@ -37,7 +37,7 @@
          hold_pinner.change_hold_type('hold');
        }
        function save_holds() {
-         var result = hold_pinner.get_holds();
+         const result = hold_pinner.get_holds();
          console.log(JSON.stringify(result));
          let myRequest = new Request('/blocchi/games/1/pinnings.js', 
            { 
