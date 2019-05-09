@@ -46,6 +46,13 @@ export class HoldLabel {
     });
   }
 
+  move(x, y) {
+    this.x = x;
+    this.y = y;
+    this.label.x(this.x - 120);
+    this.label.y(this.y - 15);
+  }
+
   // to delete having pin from konvajs and anyway only one hold in a x:y
   hold_label_key() {
     return (`${this.label.attrs.x}:${this.label.attrs.y}`);
@@ -158,6 +165,11 @@ export class HoldPinner {
       const hold_label = new HoldLabel(x, y, hold_type);
       this.layer.add(hold_label.label).draw();
       this.result.push(hold_label);
+      // FIXME: pull out of here this code, probably use a label inside Hold is a better choice.
+      hold.pin.on('dragmove', () => {
+        hold_label.move(hold.pin.x(), hold.pin.y());
+        hold_label.label.draw();
+      });
     }
     return hold;
   }
