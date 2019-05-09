@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if false or Rails.env.development? 
-      session[:user_id] = 2
+      session[:user_id] = 1
     end
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])
