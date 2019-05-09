@@ -1,18 +1,15 @@
 const colors = {
-  start: 'rgba(123, 123, 123, 0.9)',
-  top: 'rgba(123, 1, 123, 0.9)',
-  hold: 'rgba(123, 123, 1, 0.9)',
+  start: 'rgba(219, 10, 91, 0.8)',
+  top:   'rgba(123, 1, 123, 0.8)',
+  hold:  'rgba(245, 229, 27, 0.8)',
+  blurr_background: 'rgba(200, 200, 200, 0.25)',
 };
 
 export class HoldLabel {
-  constructor(x, y, label_type) {
+  constructor(x, y, type) {
     this.x = x;
     this.y = y;
-    this.label_type = label_type;
-
-    const common = {
-      x: this.x, y: this.y, strokeWidth: 8, stroke: 'blue', draggable: true,
-    };
+    this.type = type;
 
     this.label = new Konva.Label({
       x: this.x - 120,
@@ -23,7 +20,7 @@ export class HoldLabel {
 
     this.label.add(
       new Konva.Text({
-        text: this.label_type,
+        text: this.type,
         fontFamily: 'Calibri',
         fontSize: 38,
         padding: 5,
@@ -39,8 +36,13 @@ export class HoldLabel {
     );
 
     this.label.on('dragend', () => {
-      this.x = this.label.attrs.x;
-      this.y = this.label.attrs.y;
+      if (this.label.attrs.x < 10) {
+        this.x = 0;
+        this.y = 0;
+      } else {
+        this.x = this.label.attrs.x;
+        this.y = this.label.attrs.y;
+      }
     });
   }
 
@@ -51,37 +53,42 @@ export class HoldLabel {
 }
 
 export class Hold {
-  constructor(x, y, hold_type) {
+  constructor(x, y, type) {
     this.x = x;
     this.y = y;
-    this.hold_type = hold_type;
+    this.type = type;
 
     const common = {
-      x: this.x, y: this.y, strokeWidth: 8, stroke: this.color(), draggable: true,
+      x: this.x, y: this.y, strokeWidth: 8, stroke: this.color(), draggable: true, fill: colors['blurr_background']
     };
 
-    if (hold_type == 'start') {
+    if (type == 'start') {
       this.pin = new Konva.Star({
-        ...common, ...{ numPoints: 6, innerRadius: 30, outerRadius: 50 },
+        ...common, ...{ numPoints: 4, innerRadius: 30, outerRadius: 50 },
       });
-    } else if (hold_type == 'hold') {
+    } else if (type == 'hold') {
       this.pin = new Konva.Circle({
         ...common, ...{ radius: 30 },
       });
-    } else if (hold_type == 'top') {
+    } else if (type == 'top') {
       this.pin = new Konva.Star({
-        ...common, ...{ numPoints: 6, innerRadius: 30, outerRadius: 50 },
+        ...common, ...{ numPoints: 5, innerRadius: 30, outerRadius: 50 },
       });
     }
 
     this.pin.on('dragend', () => {
-      this.x = this.pin.attrs.x;
-      this.y = this.pin.attrs.y;
+      if (this.pin.attrs.x < 10) {
+        this.x = 0;
+        this.y = 0;
+      } else {
+        this.x = this.pin.attrs.x;
+        this.y = this.pin.attrs.y; 
+      }
     });
   }
 
   color() {
-    return colors[this.hold_type];
+    return colors[this.type];
   }
 
   // to delete having pin from konvajs and anyway only one hold in a x:y
@@ -94,9 +101,9 @@ export class HoldPinner {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.selected_hold_type = 'start';
+    this.actual_hold_type = 'start';
 
-    this.holds = {};
+    this.result = [];
 
     this.valid = false;
     this.dragging = false;
@@ -122,31 +129,27 @@ export class HoldPinner {
     const x = e.evt.layerX;
     const y = e.evt.layerY;
 
-    const hold = new Hold(x, y, this.selected_hold_type);
-    console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.hold_type}`);
-
-    this.actual_hold = hold;
+    const hold = new Hold(x, y, this.actual_hold_type);
+    console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
 
     this.layer.add(hold.pin).draw();
-    if (hold.hold_type != 'hold') {
-      const hold_label = new HoldLabel(x, y, this.selected_hold_type);
+    this.result.push(hold);
+
+    if (hold.type != 'hold') {
+      const hold_label = new HoldLabel(x, y, this.actual_hold_type);
       this.layer.add(hold_label.label).draw();
+      this.result.push(hold_label);
     }
 
-    this.holds[hold.hold_key()] = hold;
-    console.log(this.holds);
+    console.log(this.result);
   }
 
   change_hold_type(th) {
-    this.selected_hold_type = th;
+    this.actual_hold_type = th;
   }
 
   get_holds() {
-    console.log(this.holds);
-    return Object.keys(this.holds).map(h_k => ({
-      x: this.holds[h_k].x,
-      y: this.holds[h_k].y,
-      hold_type: this.holds[h_k].hold_type,
-    }));
+    console.log(this.result);
+    return this.result.filter(h => h.x != 0).map(h => ({ c: h.constructor.name, x: h.x, y: h.y, type: h.type }));
   }
 }
