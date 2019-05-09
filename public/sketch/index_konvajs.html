@@ -10,7 +10,17 @@
     <script type="module">
        import { Hold, HoldPinner } from './holds_pinning_lib.konvajs.js';
 
-    	 var hold_pinner = new HoldPinner(1024, 1024);
+       const startingHolds = [
+         { x: 73, y: 97, type: 'start' },
+         { x: 209, y: 155, type: 'start' },
+         { x: 423, y: 243, type: 'hold' },
+         { x: 379, y: 503, type: 'hold' },
+         { x: 209, y: 382, type: 'hold' },
+         { x: 709, y: 100, type: 'top' },
+       ];
+
+       var hold_pinner = new HoldPinner(1024, 1024);
+       hold_pinner.setup(startingHolds);
 
        document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
        document.querySelector('#top_hold_btn').addEventListener('click', top_hold)

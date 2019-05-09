@@ -1,7 +1,7 @@
 const colors = {
   start: 'rgba(219, 10, 91, 0.8)',
-  top:   'rgba(123, 1, 123, 0.8)',
-  hold:  'rgba(245, 229, 27, 0.8)',
+  top: 'rgba(123, 1, 123, 0.8)',
+  hold: 'rgba(245, 229, 27, 0.8)',
   blurr_background: 'rgba(200, 200, 200, 0.25)',
 };
 
@@ -59,18 +59,23 @@ export class Hold {
     this.type = type;
 
     const common = {
-      x: this.x, y: this.y, strokeWidth: 8, stroke: this.color(), draggable: true, fill: colors['blurr_background']
+      x: this.x,
+      y: this.y,
+      strokeWidth: 8,
+      stroke: this.color(),
+      draggable: true,
+      fill: colors.blurr_background,
     };
 
-    if (type == 'start') {
+    if (type === 'start') {
       this.pin = new Konva.Star({
         ...common, ...{ numPoints: 4, innerRadius: 30, outerRadius: 50 },
       });
-    } else if (type == 'hold') {
+    } else if (type === 'hold') {
       this.pin = new Konva.Circle({
         ...common, ...{ radius: 30 },
       });
-    } else if (type == 'top') {
+    } else if (type === 'top') {
       this.pin = new Konva.Star({
         ...common, ...{ numPoints: 5, innerRadius: 30, outerRadius: 50 },
       });
@@ -82,7 +87,7 @@ export class Hold {
         this.y = 0;
       } else {
         this.x = this.pin.attrs.x;
-        this.y = this.pin.attrs.y; 
+        this.y = this.pin.attrs.y;
       }
     });
   }
@@ -118,30 +123,42 @@ export class HoldPinner {
     this.stage.add(this.layer);
 
     this.stage.on('click', (e) => {
-      this.add_hold(e);
+      this.add_hold_event(e);
     });
   }
 
-  add_hold(e) {
+  setup(holdsData) {
+    holdsData.forEach((hold, index) => {
+      console.log(hold, index);
+      this.add_hold(hold.x, hold.y, hold.type);
+    });
+  }
+
+  add_hold_event(e) {
     console.log(e);
     console.log(`adding hold from event e.x, e.y:${e.evt.layerX}:${e.evt.layerY}`);
 
     const x = e.evt.layerX;
     const y = e.evt.layerY;
 
-    const hold = new Hold(x, y, this.actual_hold_type);
-    console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
+    const hold = this.add_hold(x, y, this.actual_hold_type);
 
+    this.actual_hold = hold;
+    console.log(this.result);
+  }
+
+  add_hold(x, y, hold_type) {
+    const hold = new Hold(x, y, hold_type);
+    console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
     this.layer.add(hold.pin).draw();
     this.result.push(hold);
 
     if (hold.type != 'hold') {
-      const hold_label = new HoldLabel(x, y, this.actual_hold_type);
+      const hold_label = new HoldLabel(x, y, hold_type);
       this.layer.add(hold_label.label).draw();
       this.result.push(hold_label);
     }
-
-    console.log(this.result);
+    return hold;
   }
 
   change_hold_type(th) {
@@ -150,6 +167,8 @@ export class HoldPinner {
 
   get_holds() {
     console.log(this.result);
-    return this.result.filter(h => h.x != 0).map(h => ({ c: h.constructor.name, x: h.x, y: h.y, type: h.type }));
+    return this.result.filter(h => h.x != 0).map(h => ({
+      c: h.constructor.name, x: h.x, y: h.y, type: h.type,
+    }));
   }
 }
