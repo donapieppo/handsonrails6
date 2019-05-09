@@ -1,16 +1,17 @@
+# https://evilmartians.com/chronicles/rails-5-2-active-storage-and-beyond
 class Game < ApplicationRecord
   belongs_to :user
   belongs_to :color
   has_many :reactions
   has_many :comments
 
-  has_one_attached :sketch
+  has_one_attached :image
 
+  serialize :pinnings, JSON
   serialize :cache_reactions_counts, Hash
   serialize :tags, Array
 
-  # validates :name, uniqueness: { scope: [:organization_id], message: "C'è già un blocco con questo nome." }
-  validates :name, uniqueness: { message: "C'è già un blocco con questo nome." }
+  validates :name, uniqueness: { message: "C'è già un blocco con questo nome.", case_sensitive: false }
   before_save :clean_tags
 
   @@possible_tags = [:sit_start, :two_hands_start, :free_feet]
