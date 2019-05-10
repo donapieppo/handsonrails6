@@ -2,7 +2,7 @@ const colors = {
   start: 'rgba(219, 10, 91, 0.8)',
   top: 'rgba(123, 1, 123, 0.8)',
   hold: 'rgba(245, 229, 27, 0.8)',
-  blurr_background: 'rgba(200, 200, 200, 0.25)',
+  blurr_background: 'rgba(200, 200, 200, 0.30)',
 };
 
 export class HoldLabel {
@@ -12,26 +12,27 @@ export class HoldLabel {
     this.type = type;
 
     this.label = new Konva.Label({
-      x: this.x - 120,
+      x: this.x - 150,
       y: this.y - 15,
       opacity: 0.75,
       draggable: true,
     });
 
     this.label.add(
+      new Konva.Tag({
+        fill: 'rgba(123, 1, 123, 0.8)',
+        cornerRadius: 5,
+      }),
+    );
+
+    this.label.add(
       new Konva.Text({
         text: this.type,
         fontFamily: 'Calibri',
         fontSize: 38,
-        padding: 5,
-        fill: 'black',
+        padding: 25,
+        fill: 'white',
         align: 'right',
-      }),
-    );
-    this.label.add(
-      new Konva.Tag({
-        fill: 'yellow',
-        cornerRadius: 5,
       }),
     );
 
@@ -103,11 +104,6 @@ export class Hold {
   color() {
     return colors[this.type];
   }
-
-  // to delete having pin from konvajs and anyway only one hold in a x:y
-  hold_key() {
-    return (`${this.pin.x()}:${this.pin.y()}`);
-  }
 }
 
 export class HoldPinner {
@@ -137,9 +133,10 @@ export class HoldPinner {
   }
 
   setup(holdsData) {
-    holdsData.forEach((hold, index) => {
-      console.log(hold, index);
-      this.add_hold(hold.x, hold.y, hold.type);
+    holdsData.forEach(hold => {
+      if (hold.c === 'Hold') {
+        this.add_hold(hold.x, hold.y, hold.type);
+      }
     });
   }
 
@@ -162,7 +159,7 @@ export class HoldPinner {
     this.layer.add(hold.pin).draw();
     this.result.push(hold);
 
-    if (hold.type !== 'hold') {
+    if (hold.type === 'top') {
       const hold_label = new HoldLabel(x, y, hold_type);
       this.layer.add(hold_label.label).draw();
       this.result.push(hold_label);
