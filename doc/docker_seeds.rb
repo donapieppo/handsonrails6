@@ -15,3 +15,5 @@ Color.create(name: "orange", val: 40)
 Color.create(name: "purple", val: 50)
 Color.create(name: "black", val: 60)
 
+User.create(name: "Piter", email: "donapieppo121212@gmail.com", manager: true)
+User.create(name: "Gas", email: "gasgasgas121212@gmail.com", manager: true)
