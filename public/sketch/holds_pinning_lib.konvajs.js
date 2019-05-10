@@ -14,13 +14,13 @@ export class HoldLabel {
     this.label = new Konva.Label({
       x: this.x - 150,
       y: this.y - 15,
-      opacity: 0.75,
+      opacity: 0.85,
       draggable: true,
     });
 
     this.label.add(
       new Konva.Tag({
-        fill: 'rgba(123, 1, 123, 0.8)',
+        fill: 'rgba(123, 1, 123, 1)',
         cornerRadius: 5,
       }),
     );
@@ -30,7 +30,7 @@ export class HoldLabel {
         text: this.type,
         fontFamily: 'Calibri',
         fontSize: 38,
-        padding: 25,
+        padding: 15,
         fill: 'white',
         align: 'right',
       }),
@@ -62,7 +62,7 @@ export class HoldLabel {
 }
 
 export class Hold {
-  constructor(x, y, type) {
+  constructor(x, y, type, size) {
     this.x = x;
     this.y = y;
     this.type = type;
@@ -78,15 +78,15 @@ export class Hold {
 
     if (type === 'start') {
       this.pin = new Konva.Star({
-        ...common, ...{ numPoints: 4, innerRadius: 30, outerRadius: 50 },
+        ...common, ...{ numPoints: 4, innerRadius: size, outerRadius: size - 10 },
       });
     } else if (type === 'hold') {
       this.pin = new Konva.Circle({
-        ...common, ...{ radius: 30 },
+        ...common, ...{ radius: size },
       });
     } else if (type === 'top') {
       this.pin = new Konva.Star({
-        ...common, ...{ numPoints: 5, innerRadius: 30, outerRadius: 50 },
+        ...common, ...{ numPoints: 5, innerRadius: size, outerRadius: size - 10  },
       });
     }
 
@@ -111,6 +111,7 @@ export class HoldPinner {
     this.target = target;
     this.width = width;
     this.height = height;
+    this.hold_size = (width + height) / 50  
     this.actual_hold_type = 'start';
 
     this.result = [];
@@ -154,7 +155,7 @@ export class HoldPinner {
   }
 
   add_hold(x, y, hold_type) {
-    const hold = new Hold(x, y, hold_type);
+    const hold = new Hold(x, y, hold_type, this.hold_size);
     console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
     this.layer.add(hold.pin).draw();
     this.result.push(hold);
