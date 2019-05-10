@@ -8,6 +8,7 @@
         <h6 class="dropdown-header">Azioni</h6>
         <% if policy(game).edit? %>  
           <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(game), class: "dropdown-item" %>
+          <%= link_to icon('fas fa-edit fa-fw text-muted', 'modifica prese'), edit_pinnings_game_path(game), class: "dropdown-item" %>
           <%= link_to icon('fas fa-trash fa-fw text-muted', "elimina"), game_path(game), method: :delete, class: "dropdown-item", data: {confirm: 'Siete sicuri di voler cancellare?'} %>
         <% end %>
         <% Reaction.each_types do |t| %>
