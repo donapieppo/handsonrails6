@@ -1,7 +1,7 @@
 const colors = {
   start: 'rgba(219, 10, 91, 0.8)',
-  top:   'rgba(123, 1, 123, 0.8)',
-  hold:  'rgba(245, 229, 27, 0.8)',
+  top: 'rgba(123, 1, 123, 0.8)',
+  hold: 'rgba(245, 229, 27, 0.8)',
   blurr_background: 'rgba(200, 200, 200, 0.25)',
 };
 
@@ -36,19 +36,27 @@ export class HoldLabel {
     );
 
     this.label.on('dragend', () => {
-      if (this.label.attrs.x < 10) {
+      if (this.label.x() < 10) {
         this.x = 0;
         this.y = 0;
       } else {
-        this.x = this.label.attrs.x;
-        this.y = this.label.attrs.y;
+        this.x = this.label.x();
+        this.y = this.label.y();
       }
     });
   }
 
+  move(x, y) {
+    this.x = x;
+    this.y = y;
+    this.label.x(this.x - 120);
+    this.label.y(this.y - 15);
+    this.label.draw();
+  }
+
   // to delete having pin from konvajs and anyway only one hold in a x:y
   hold_label_key() {
-    return (`${this.label.attrs.x}:${this.label.attrs.y}`);
+    return (`${this.label.x()}:${this.label.y()}`);
   }
 }
 
@@ -59,30 +67,35 @@ export class Hold {
     this.type = type;
 
     const common = {
-      x: this.x, y: this.y, strokeWidth: 8, stroke: this.color(), draggable: true, fill: colors['blurr_background']
+      x: this.x,
+      y: this.y,
+      strokeWidth: 8,
+      stroke: this.color(),
+      draggable: true,
+      fill: colors.blurr_background,
     };
 
-    if (type == 'start') {
+    if (type === 'start') {
       this.pin = new Konva.Star({
         ...common, ...{ numPoints: 4, innerRadius: 30, outerRadius: 50 },
       });
-    } else if (type == 'hold') {
+    } else if (type === 'hold') {
       this.pin = new Konva.Circle({
         ...common, ...{ radius: 30 },
       });
-    } else if (type == 'top') {
+    } else if (type === 'top') {
       this.pin = new Konva.Star({
         ...common, ...{ numPoints: 5, innerRadius: 30, outerRadius: 50 },
       });
     }
 
     this.pin.on('dragend', () => {
-      if (this.pin.attrs.x < 10) {
+      if (this.pin.x() < 10) {
         this.x = 0;
         this.y = 0;
       } else {
-        this.x = this.pin.attrs.x;
-        this.y = this.pin.attrs.y; 
+        this.x = this.pin.x();
+        this.y = this.pin.y();
       }
     });
   }
@@ -93,12 +106,13 @@ export class Hold {
 
   // to delete having pin from konvajs and anyway only one hold in a x:y
   hold_key() {
-    return (`${this.pin.attrs.x}:${this.pin.attrs.y}`);
+    return (`${this.pin.x()}:${this.pin.y()}`);
   }
 }
 
 export class HoldPinner {
-  constructor(width, height) {
+  constructor(target, width, height) {
+    this.target = target;
     this.width = width;
     this.height = height;
     this.actual_hold_type = 'start';
@@ -109,7 +123,7 @@ export class HoldPinner {
     this.dragging = false;
 
     this.stage = new Konva.Stage({
-      container: 'canvasDiv',
+      container: target,
       width: this.width,
       height: this.height,
     });
@@ -118,30 +132,46 @@ export class HoldPinner {
     this.stage.add(this.layer);
 
     this.stage.on('click', (e) => {
-      this.add_hold(e);
+      this.add_hold_event(e);
     });
   }
 
-  add_hold(e) {
+  setup(holdsData) {
+    holdsData.forEach((hold, index) => {
+      console.log(hold, index);
+      this.add_hold(hold.x, hold.y, hold.type);
+    });
+  }
+
+  add_hold_event(e) {
     console.log(e);
     console.log(`adding hold from event e.x, e.y:${e.evt.layerX}:${e.evt.layerY}`);
 
     const x = e.evt.layerX;
     const y = e.evt.layerY;
 
-    const hold = new Hold(x, y, this.actual_hold_type);
-    console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
+    const hold = this.add_hold(x, y, this.actual_hold_type);
 
+    this.actual_hold = hold;
+    console.log(this.result);
+  }
+
+  add_hold(x, y, hold_type) {
+    const hold = new Hold(x, y, hold_type);
+    console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
     this.layer.add(hold.pin).draw();
     this.result.push(hold);
 
-    if (hold.type != 'hold') {
-      const hold_label = new HoldLabel(x, y, this.actual_hold_type);
+    if (hold.type !== 'hold') {
+      const hold_label = new HoldLabel(x, y, hold_type);
       this.layer.add(hold_label.label).draw();
       this.result.push(hold_label);
+      // FIXME: pull out of here this code, probably use a label inside Hold is a better choice.
+      hold.pin.on('dragmove', () => {
+        hold_label.move(hold.pin.x(), hold.pin.y());
+      });
     }
-
-    console.log(this.result);
+    return hold;
   }
 
   change_hold_type(th) {
@@ -150,6 +180,8 @@ export class HoldPinner {
 
   get_holds() {
     console.log(this.result);
-    return this.result.filter(h => h.x != 0).map(h => ({ c: h.constructor.name, x: h.x, y: h.y, type: h.type }));
+    return this.result.filter(h => h.x !== 0).map(h => ({
+      c: h.constructor.name, x: h.x, y: h.y, type: h.type,
+    }));
   }
 }
