@@ -1,8 +1,9 @@
 class GamesController < ApplicationController
-  before_action :get_game_and_check_permission, only: [:show, :edit, :update, :destroy]
+  before_action :get_game_and_check_permission, only: [:show, :edit, :update, :destroy, :edit_pinnings, :pinnings]
+  skip_before_action :verify_authenticity_token, only: [:pinnings]
 
   def index
-    @games = Game.includes(:user)
+    @games = Game.includes(:user).with_attached_image
     if params[:color_id]
       @games = @games.where(color_id: params[:color_id]).order('games.created_at desc, games.name')
     elsif params[:user_id]
@@ -63,10 +64,20 @@ class GamesController < ApplicationController
   def qrcodes
   end
 
+  def edit_pinnings
+  end
+
+  # post
+  # "_json"=>[{"x"=>72, "y"=>131, "hold_type"=>"start"}, {"x"=>218, "y"=>179, "hold_type"=>"start"}, {"x"=>384, "y"=>76, "hold_type"=>"hold"}]
+  def pinnings
+    @game.update(pinnings: params[:_json])
+    render json: {}, status: :ok
+  end
+
   private
 
   def game_params
-    p = [:name, :description, :color_id, :user_id, :sketch, :sit_start, :two_hands_start, :free_feet]
+    p = [:name, :description, :color_id, :user_id, :image, :sit_start, :two_hands_start, :free_feet]
     p << :competition if user_manager?
     p << :user_id if user_admin?
     params[:game].permit(p)

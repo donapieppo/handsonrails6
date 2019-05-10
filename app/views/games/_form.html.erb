@@ -23,10 +23,11 @@
 
     <label class="col-sm-3 col-form-label">Immagine</label>
     <div class="col-sm-9 my-3">
-      <% if @game.sketch.attached? %>  
-        <%= image_tag @game.sketch.variant(resize_to_limit: [200, 200]), class: "img-thumbnail" %> 
+      <% if @game.image.attached? %>  
+        <%= image_tag @game.image.variant(resize_to_limit: [200, 200]), class: "img-thumbnail" %> 
       <% end %>
-      <%= g.input :sketch, as: :file, label: false %>
+      <%# <input class="form-control-file file optional" type="file" name="game[image]" id="game_image" accept="image/*;capture=camera"> %>
+      <%= g.input :image, as: :file, input_html: { accept: "image/*;capture=camera" } %>  
     </div>
   </div>
 

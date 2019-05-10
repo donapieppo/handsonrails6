@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       get :toggle, on: :collection
     end
     resources :comments
+    get  :edit_pinnings, on: :member
+    post :pinnings, on: :member
   end
 
   resources :users do
