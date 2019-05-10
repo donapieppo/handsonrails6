@@ -22,7 +22,7 @@ RUN bundle install
 COPY . .
 
 # configuration
-RUN ["/bin/cp", "doc/docker_database.yml", "config/database.yml.sample"]
+RUN ["/bin/cp", "doc/docker_database.yml", "config/database.yml"]
 RUN ["/bin/cp", "doc/docker_seeds.rb", "db/seeds.rb"]
 
 # old without docker compose
