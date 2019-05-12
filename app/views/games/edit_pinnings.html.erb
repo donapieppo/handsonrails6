@@ -35,7 +35,9 @@
      hold_pinner.change_hold_type('hold');
    }
    function save_holds() {
-     var result = hold_pinner.get_holds();
+     var result = {};
+     result['holds'] = hold_pinner.get_holds();
+     result['image'] = hold_pinner.export_image();
      console.log(JSON.stringify(result));
      let myRequest = new Request('<%= pinnings_game_path(@game) %>', 
        { 
