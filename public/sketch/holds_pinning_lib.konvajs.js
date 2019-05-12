@@ -1,3 +1,4 @@
+// https://konvajs.org/docs/data_and_serialization/Stage_Data_URL.html
 const colors = {
   start: 'rgba(219, 10, 91, 0.8)',
   top: 'rgba(123, 1, 123, 0.8)',
@@ -181,5 +182,23 @@ export class HoldPinner {
     return this.result.filter(h => h.x !== 0).map(h => ({
       c: h.constructor.name, x: h.x, y: h.y, type: h.type,
     }));
+  }
+  
+  export_image() {
+    var dataURL = this.stage.toDataURL();
+    return dataURL;
+  }
+
+  // thanks to https://konvajs.org/docs/sandbox/Responsive_Canvas.html
+  fitStageIntoParentContainer(parent_id) {
+    var container = document.querySelector(`#${parent_id}`);
+
+    var containerWidth = container.offsetWidth;
+    var scale = containerWidth / this.width;
+
+    this.stage.width(this.width * scale);
+    this.stage.height(this.height * scale);
+    this.stage.scale({ x: scale, y: scale });
+    this.stage.draw();
   }
 }
