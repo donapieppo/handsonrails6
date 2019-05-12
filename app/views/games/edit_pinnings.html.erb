@@ -1,13 +1,20 @@
-<div class="container">
-<h1><%= @game.name %></h1>
-
 <% width  = @game.image.metadata[:width] %>  
 <% height = @game.image.metadata[:height] %>  
+
+<div class="container">
+<div style="position: fixed; top: 10px; left: 0; text-align: center; width: 100%; z-index: 1000">
+  <button id="start_hold_btn" class="btn btn-info">PARTENZA</button>
+  <button id="common_hold_btn" class="btn btn-info">PRESA</button>
+  <button id="top_hold_btn" class="btn btn-info">TOP</button>
+  <button id="save_btn" class="btn btn-info">SALVA</button>
+</div>
+<div id="canvasDiv" style="margin-top: 60px; width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
 
 <script type="module">
   import { Hold, HoldPinner } from '../../sketch/holds_pinning_lib.konvajs.js';
 
-  var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
+   var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
+   hold_pinner.set_editable();
 
    const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
 
@@ -45,12 +52,5 @@
      });
    }
 </script>
-<div style="position: fixed; top: 0; left: 0; text-align: center; width: 100%; z-index: 1000">
-  <button id="start_hold_btn" class="brn btn-primary">PRESA/E DI PARTENZA</button>
-  <button id="common_hold_btn" class="brn btn-primary">ALTRE PRESE</button>
-  <button id="top_hold_btn" class="brn btn-primary">TOP</button>
-  <button id="save_btn" class="brn btn-primary">SALVA</button>
-</div>
-<div id="canvasDiv" style="width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
 <%# document.write('<img src="'+img+'"/>'); %>
 </div><!-- container -->
