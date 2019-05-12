@@ -4,8 +4,6 @@
 <% width  = @game.image.metadata[:width] %>  
 <% height = @game.image.metadata[:height] %>  
 
-<script src="https://unpkg.com/konva@3.2.4/konva.min.js"></script>
-<script type="module" src="../../sketch/holds_pinning_lib.konvajs.js"></script>
 <script type="module">
   import { Hold, HoldPinner } from '../../sketch/holds_pinning_lib.konvajs.js';
 
@@ -54,4 +52,5 @@
   <button id="save_btn" class="brn btn-primary">SALVA</button>
 </div>
 <div id="canvasDiv" style="width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
-</div>
+<%# document.write('<img src="'+img+'"/>'); %>
+</div><!-- container -->
