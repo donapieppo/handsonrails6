@@ -2,8 +2,8 @@
 class Game < ApplicationRecord
   belongs_to :user
   belongs_to :color
-  has_many :reactions
-  has_many :comments
+  has_many :reactions, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   has_one_attached :image
 
