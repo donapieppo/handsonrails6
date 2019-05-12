@@ -80,7 +80,19 @@ class GamesController < ApplicationController
     p = [:name, :description, :color_id, :user_id, :image, :sit_start, :two_hands_start, :free_feet]
     p << :competition if user_manager?
     p << :user_id if user_admin?
+    resize_image
     params[:game].permit(p)
+  end
+
+  def resize_image
+    if _i = params[:game][:image] 
+      image = MiniMagick::Image.new(_i.tempfile.path)
+      if image.height < image.width and image.height > 800
+        image.resize "x800"
+      elsif image.width < image.height and image.width > 800
+        image.resize "800x"
+      end
+    end
   end
 
   def get_game_and_check_permission
