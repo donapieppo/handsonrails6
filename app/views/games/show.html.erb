@@ -1,8 +1,7 @@
-<% width  = @game.image.metadata[:width] %>  
-<% height = @game.image.metadata[:height] %>  
+<% width  = @game.image.attached? ? @game.image.metadata[:width] : 100 %>  
+<% height = @game.image.attached? ? @game.image.metadata[:height] : 100 %>  
 
 <div class="game">
-   hold_pinner.stage.width = "100px";
   <div class="game-card my-3">
     <div class="game-header">
       <%= game_icon(@game) %> 
@@ -12,14 +11,11 @@
     </div>
 
     <div class="game-body m-0 p-0">
-      <div id="canvasDiv" style="background-image: url('<%= url_for(@game.image) %>')">
-        <%# <% if Rails.env.production? and @game.image.attached? %1> %>  
-        <%# <% if @game.image.attached? %1> %>  
-        <%#   <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %1> %>  
-        <%# <% else %1> %>
-        <%#   <%= missing_image_tag %1> %>  
-        <%# <% end %1> %>
-      </div>
+      <% if @game.image.attached? %>  
+        <div id="canvasDiv" style="background-image: url('<%= url_for(@game.image) %>'); background-size: contain"></div>
+      <% else %>
+        <%= missing_image_tag %>  
+      <% end %>
     </div>
 
     <div class="game-footer">
@@ -82,9 +78,9 @@
 
 <%= dm_modal_js_helper %>
 
-
+<% if @game.image.attached? %>  
 <script type="module">
-  import { Hold, HoldPinner } from '../../sketch/holds_pinning_lib.konvajs.js';
+  import { Hold, HoldPinner } from '/blocchi/sketch/holds_pinning_lib.konvajs.js';
 
   var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
 
@@ -92,5 +88,5 @@
 
    hold_pinner.setup(startingHolds);
    hold_pinner.fitStageIntoParentContainer('canvasDiv');
-
 </script>
+<% end %>
