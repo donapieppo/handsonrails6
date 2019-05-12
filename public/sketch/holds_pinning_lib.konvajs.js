@@ -1,4 +1,6 @@
+// see
 // https://konvajs.org/docs/data_and_serialization/Stage_Data_URL.html
+// for saving as image
 const colors = {
   start: 'rgba(219, 10, 91, 0.8)',
   top: 'rgba(123, 1, 123, 0.8)',
@@ -7,7 +9,7 @@ const colors = {
 };
 
 export class HoldLabel {
-  constructor(x, y, type) {
+  constructor(x, y, type, editable) {
     this.x = x;
     this.y = y;
     this.type = type;
@@ -16,7 +18,7 @@ export class HoldLabel {
       x: this.x - 150,
       y: this.y - 15,
       opacity: 0.85,
-      draggable: true,
+      draggable: editable,
     });
 
     this.label.add(
@@ -55,15 +57,10 @@ export class HoldLabel {
     this.label.y(this.y - 15);
     this.label.draw();
   }
-
-  // to delete having pin from konvajs and anyway only one hold in a x:y
-  hold_label_key() {
-    return (`${this.label.x()}:${this.label.y()}`);
-  }
 }
 
 export class Hold {
-  constructor(x, y, type, size) {
+  constructor(x, y, type, size, editable) {
     this.x = x;
     this.y = y;
     this.type = type;
@@ -73,7 +70,7 @@ export class Hold {
       y: this.y,
       strokeWidth: 8,
       stroke: this.color(),
-      draggable: true,
+      draggable: editable,
       fill: colors.blurr_background,
     };
 
@@ -161,13 +158,13 @@ export class HoldPinner {
   }
 
   add_hold(x, y, hold_type) {
-    const hold = new Hold(x, y, hold_type, this.hold_size);
+    const hold = new Hold(x, y, hold_type, this.hold_size, this.editable);
     console.log(`new hold: hold.x=${hold.x} hold.y=${hold.y} hold.type=${hold.type}`);
     this.layer.add(hold.pin).draw();
     this.result.push(hold);
 
     if (hold.type === 'top') {
-      const hold_label = new HoldLabel(x, y, hold_type);
+      const hold_label = new HoldLabel(x, y, hold_type, this.editable);
       this.layer.add(hold_label.label).draw();
       this.result.push(hold_label);
       // FIXME: pull out of here this code, probably use a label inside Hold is a better choice.
