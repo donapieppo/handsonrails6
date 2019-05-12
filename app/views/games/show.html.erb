@@ -55,38 +55,18 @@
     </div>
   </div>
 </div>
-<%# <% if @game.image.attached? %1> %>  
-<%#   <div id="only-image" style="display: none; width: 100%" class="container"> %>
-<%#     <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto' %1> %>  
-<%#   </div> %>
-<%# <% end %1> %>
-
-<%# <%= javascript_tag do %1> %>  
-<%# $( document ).ready(function() { %>
-<%#   $("#game-image").on('click', function () { %> 
-<%#     $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=4.0"); %>
-<%#     $(".game").hide(); %>
-<%#     $("#only-image").show(); %>
-<%#   }); %>
-<%#   $("#only-image").on('click', function () { %> 
-<%#     $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"); %>
-<%#     $("body").empty(); %>
-<%#     window.location.href = "<%= game_path(@game) %1>"; %>
-<%# 	}); %>
-<%# }) %>
-<%# <% end %1> %>
 
 <%= dm_modal_js_helper %>
 
 <% if @game.image.attached? %>  
-<script type="module">
-  import { Hold, HoldPinner } from '/blocchi/sketch/holds_pinning_lib.konvajs.js';
+  <script type="module">
+    import { Hold, HoldPinner } from '/blocchi/sketch/holds_pinning_lib.konvajs.js';
 
-  var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
+    var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
 
-   const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
+    const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
 
-   hold_pinner.setup(startingHolds);
-   hold_pinner.fitStageIntoParentContainer('canvasDiv');
-</script>
+    hold_pinner.setup(startingHolds);
+    hold_pinner.fitStageIntoParentContainer('canvasDiv');
+  </script>
 <% end %>
