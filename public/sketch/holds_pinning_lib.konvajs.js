@@ -114,6 +114,7 @@ export class HoldPinner {
     this.height = height;
     this.hold_size = (width + height) / 50  
     this.actual_hold_type = 'start';
+    this.editable = false;
 
     this.result = [];
 
@@ -129,9 +130,6 @@ export class HoldPinner {
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
 
-    this.stage.on('click', (e) => {
-      this.add_hold_event(e);
-    });
   }
 
   setup(holdsData) {
@@ -141,6 +139,13 @@ export class HoldPinner {
       }
     });
   }
+
+  set_editable() {
+    this.editable = true;
+    this.stage.on('click', (e) => {
+      this.add_hold_event(e);
+    });
+  };
 
   add_hold_event(e) {
     console.log(e);
