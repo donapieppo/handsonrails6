@@ -71,7 +71,8 @@ class GamesController < ApplicationController
   # post
   # "_json"=>[{"x"=>72, "y"=>131, "hold_type"=>"start"}, {"x"=>218, "y"=>179, "hold_type"=>"start"}, {"x"=>384, "y"=>76, "hold_type"=>"hold"}]
   def pinnings
-    @game.update(pinnings: params[:_json])
+    image = params[:image]
+    @game.update(pinnings: params[:holds])
     render json: {}, status: :ok
   end
 
