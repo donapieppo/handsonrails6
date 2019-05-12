@@ -65,6 +65,7 @@ class GamesController < ApplicationController
   end
 
   def edit_pinnings
+    @no_menu = true
   end
 
   # post
