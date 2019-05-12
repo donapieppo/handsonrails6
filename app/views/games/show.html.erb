@@ -1,4 +1,8 @@
+<% width  = @game.image.metadata[:width] %>  
+<% height = @game.image.metadata[:height] %>  
+
 <div class="game">
+   hold_pinner.stage.width = "100px";
   <div class="game-card my-3">
     <div class="game-header">
       <%= game_icon(@game) %> 
@@ -8,13 +12,13 @@
     </div>
 
     <div class="game-body m-0 p-0">
-      <div id="game-image-div" style="width: 100%">
+      <div id="canvasDiv" style="background-image: url('<%= url_for(@game.image) %>')">
         <%# <% if Rails.env.production? and @game.image.attached? %1> %>  
-        <% if @game.image.attached? %>  
-          <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %>  
-        <% else %>
-          <%= missing_image_tag %>  
-        <% end %>
+        <%# <% if @game.image.attached? %1> %>  
+        <%#   <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto', id: 'game-image' %1> %>  
+        <%# <% else %1> %>
+        <%#   <%= missing_image_tag %1> %>  
+        <%# <% end %1> %>
       </div>
     </div>
 
@@ -55,27 +59,38 @@
     </div>
   </div>
 </div>
-<% if @game.image.attached? %>  
-  <div id="only-image" style="display: none; width: 100%" class="container">
-    <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto' %>  
-  </div>
-<% end %>
+<%# <% if @game.image.attached? %1> %>  
+<%#   <div id="only-image" style="display: none; width: 100%" class="container"> %>
+<%#     <%= image_tag @game.image, style: 'display: block; width: 100%; margin: auto' %1> %>  
+<%#   </div> %>
+<%# <% end %1> %>
 
-<%= javascript_tag do %>  
-$( document ).ready(function() {
-  $("#game-image").on('click', function () { 
-    $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=4.0");
-    $(".game").hide();
-    $("#only-image").show();
-  });
-  $("#only-image").on('click', function () { 
-    $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0");
-    $("body").empty();
-    window.location.href = "<%= game_path(@game) %>";
-	});
-})
-<% end %>
+<%# <%= javascript_tag do %1> %>  
+<%# $( document ).ready(function() { %>
+<%#   $("#game-image").on('click', function () { %> 
+<%#     $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=4.0"); %>
+<%#     $(".game").hide(); %>
+<%#     $("#only-image").show(); %>
+<%#   }); %>
+<%#   $("#only-image").on('click', function () { %> 
+<%#     $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"); %>
+<%#     $("body").empty(); %>
+<%#     window.location.href = "<%= game_path(@game) %1>"; %>
+<%# 	}); %>
+<%# }) %>
+<%# <% end %1> %>
 
 <%= dm_modal_js_helper %>
 
 
+<script type="module">
+  import { Hold, HoldPinner } from '../../sketch/holds_pinning_lib.konvajs.js';
+
+  var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
+
+   const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
+
+   hold_pinner.setup(startingHolds);
+   hold_pinner.fitStageIntoParentContainer('canvasDiv');
+
+</script>
