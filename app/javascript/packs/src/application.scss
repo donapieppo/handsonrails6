@@ -1,6 +1,8 @@
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+/* https://gist.github.com/andyyou/834e82f5723fec9d2dc021fb7b819517 */
+@import '~bootstrap/scss/bootstrap';
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'; 
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
 
 .menu-button {
   @extend .btn;
