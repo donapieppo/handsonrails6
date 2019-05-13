@@ -9,10 +9,10 @@ gem 'mysql2'
 gem 'sassc-rails'
 gem 'webpacker', github: "rails/webpacker"
 
-gem 'bootstrap'
+#gem 'bootstrap'
 gem 'mini_magick'
-gem 'jquery-rails'
-gem 'font-awesome-sass'
+#gem 'jquery-rails'
+#gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'pundit'
 
