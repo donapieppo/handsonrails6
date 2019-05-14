@@ -8,17 +8,16 @@
   <button id="top_hold_btn" class="btn btn-info">TOP</button>
   <button id="save_btn" class="btn btn-info">SALVA</button>
 </div>
-<div id="canvasDiv" style="margin-top: 60px; width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
+<div id="canvasDiv" style="margin: 60px auto; width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
 
-<script type="module">
-  import { Hold, HoldPinner } from '../../sketch/holds_pinning_lib.konvajs.js';
+<script>
+   const holds_pinner = new window.HoldsPinner('canvasDiv', <%= width %>, <%= height %>);
 
-   var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
-   hold_pinner.set_editable();
+   holds_pinner.set_editable();
 
    const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
 
-   hold_pinner.setup(startingHolds);
+   holds_pinner.setup(startingHolds);
 
    document.querySelector('#start_hold_btn').addEventListener('click', start_hold)
    document.querySelector('#top_hold_btn').addEventListener('click', top_hold)
@@ -26,18 +25,18 @@
    document.querySelector('#save_btn').addEventListener('click', save_holds)
 
    function start_hold() {
-     hold_pinner.change_hold_type('start');
+     holds_pinner.change_hold_type('start');
    }
    function top_hold() {
-     hold_pinner.change_hold_type('top');
+     holds_pinner.change_hold_type('top');
    }
    function common_hold() {
-     hold_pinner.change_hold_type('hold');
+     holds_pinner.change_hold_type('hold');
    }
    function save_holds() {
      var result = {};
-     result['holds'] = hold_pinner.get_holds();
-     result['image'] = hold_pinner.export_image();
+     result['holds'] = holds_pinner.get_holds();
+     result['image'] = holds_pinner.export_image();
      console.log(JSON.stringify(result));
      let myRequest = new Request('<%= pinnings_game_path(@game) %>', 
        { 
@@ -55,5 +54,7 @@
      });
    }
 </script>
+
 <%# document.write('<img src="'+img+'"/>'); %>
+
 </div><!-- container -->
