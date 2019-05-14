@@ -1,14 +1,29 @@
 {
-  "application.js": "/packs/js/application-44ae73ad04bcf0d4a7a2.js",
-  "application.js.map": "/packs/js/application-44ae73ad04bcf0d4a7a2.js.map",
+  "application.js": "/packs/js/application-eab71adf1d3b204cea4a.js",
+  "application.js.map": "/packs/js/application-eab71adf1d3b204cea4a.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs/js/application-44ae73ad04bcf0d4a7a2.js"
+        "/packs/js/application-eab71adf1d3b204cea4a.js"
       ],
       "js.map": [
-        "/packs/js/application-44ae73ad04bcf0d4a7a2.js.map"
+        "/packs/js/application-eab71adf1d3b204cea4a.js.map"
+      ]
+    },
+    "src/application": {
+      "js": [
+        "/packs/js/src/application-3d6eb08d0dd6f52de104.js"
+      ],
+      "js.map": [
+        "/packs/js/src/application-3d6eb08d0dd6f52de104.js.map"
       ]
     }
-  }
+  },
+  "media/webfonts/fa-solid-900.eot": "/packs/media/webfonts/fa-solid-900-e2675a61.eot",
+  "media/webfonts/fa-solid-900.svg": "/packs/media/webfonts/fa-solid-900-7726a281.svg",
+  "media/webfonts/fa-solid-900.ttf": "/packs/media/webfonts/fa-solid-900-f14c3b2f.ttf",
+  "media/webfonts/fa-solid-900.woff": "/packs/media/webfonts/fa-solid-900-0be94a07.woff",
+  "media/webfonts/fa-solid-900.woff2": "/packs/media/webfonts/fa-solid-900-64b3e814.woff2",
+  "src/application.js": "/packs/js/src/application-3d6eb08d0dd6f52de104.js",
+  "src/application.js.map": "/packs/js/src/application-3d6eb08d0dd6f52de104.js.map"
 }
