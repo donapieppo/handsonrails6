@@ -56,17 +56,14 @@
   </div>
 </div>
 
-<%= dm_modal_js_helper %>
-
 <% if @game.image.attached? %>  
-  <script type="module">
-    import { Hold, HoldPinner } from '/blocchi/sketch/holds_pinning_lib.konvajs.js';
-
-    var hold_pinner = new HoldPinner('canvasDiv', <%= width %>, <%= height %>);
-
+  <script>
+    const holds_pinner = new HoldsPinner('canvasDiv', <%= width %>, <%= height %>);
     const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
-
-    hold_pinner.setup(startingHolds);
-    hold_pinner.fitStageIntoParentContainer('canvasDiv');
+    holds_pinner.setup(startingHolds);
+    // wait for bootstrap resize 
+    window.addEventListener('load', function () {
+      holds_pinner.fitStageIntoParentContainer();
+    }, false);
   </script>
 <% end %>
