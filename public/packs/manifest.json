@@ -1,29 +1,34 @@
 {
-  "application.js": "/packs/js/application-eab71adf1d3b204cea4a.js",
-  "application.js.map": "/packs/js/application-eab71adf1d3b204cea4a.js.map",
+  "application.js": "/packs/js/application-142bd51974bcdd0bb079.js",
+  "application.js.map": "/packs/js/application-142bd51974bcdd0bb079.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs/js/application-eab71adf1d3b204cea4a.js"
+        "/packs/js/application-142bd51974bcdd0bb079.js"
       ],
       "js.map": [
-        "/packs/js/application-eab71adf1d3b204cea4a.js.map"
+        "/packs/js/application-142bd51974bcdd0bb079.js.map"
       ]
     },
     "src/application": {
       "js": [
-        "/packs/js/src/application-3d6eb08d0dd6f52de104.js"
+        "/packs/js/src/application-ab86994f3f7b4b474754.js"
       ],
       "js.map": [
-        "/packs/js/src/application-3d6eb08d0dd6f52de104.js.map"
+        "/packs/js/src/application-ab86994f3f7b4b474754.js.map"
       ]
     }
   },
+  "media/webfonts/fa-regular-400.eot": "/packs/media/webfonts/fa-regular-400-859001f6.eot",
+  "media/webfonts/fa-regular-400.svg": "/packs/media/webfonts/fa-regular-400-da8a235b.svg",
+  "media/webfonts/fa-regular-400.ttf": "/packs/media/webfonts/fa-regular-400-f3334251.ttf",
+  "media/webfonts/fa-regular-400.woff": "/packs/media/webfonts/fa-regular-400-7aaf5675.woff",
+  "media/webfonts/fa-regular-400.woff2": "/packs/media/webfonts/fa-regular-400-7980a636.woff2",
   "media/webfonts/fa-solid-900.eot": "/packs/media/webfonts/fa-solid-900-e2675a61.eot",
   "media/webfonts/fa-solid-900.svg": "/packs/media/webfonts/fa-solid-900-7726a281.svg",
   "media/webfonts/fa-solid-900.ttf": "/packs/media/webfonts/fa-solid-900-f14c3b2f.ttf",
   "media/webfonts/fa-solid-900.woff": "/packs/media/webfonts/fa-solid-900-0be94a07.woff",
   "media/webfonts/fa-solid-900.woff2": "/packs/media/webfonts/fa-solid-900-64b3e814.woff2",
-  "src/application.js": "/packs/js/src/application-3d6eb08d0dd6f52de104.js",
-  "src/application.js.map": "/packs/js/src/application-3d6eb08d0dd6f52de104.js.map"
+  "src/application.js": "/packs/js/src/application-ab86994f3f7b4b474754.js",
+  "src/application.js.map": "/packs/js/src/application-ab86994f3f7b4b474754.js.map"
 }
