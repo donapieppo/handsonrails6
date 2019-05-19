@@ -8,8 +8,8 @@
       </div>
       <div class="card-body">
         <%= link_to game_path(game) do %>  
-          <% if game.image.attached? %>  
-            <%= image_tag game.image.variant(resize_to_limit: [400, 300]), class: 'img-fluid rounded mx-auto d-block' %> 
+          <% if game.pinned_image.attached? %>  
+              <%= image_tag game.pinned_image.variant(resize_to_limit: [400, 300]), class: 'img-fluid rounded mx-auto d-block' %> 
           <% else %>
             <%= missing_image_tag %>  
           <% end %>
