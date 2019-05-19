@@ -1,23 +1,32 @@
 <div class="float-right">
-  <div class="dropleft">
-    <button class="btn btn-light ml-3 pt-0" type="button" id="dropdownActionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span style="font-size: 22px"><%= icon "fas fa-ellipsis-v", bold: true %></span>
-    </button>
-    <div class="dropdown-menu bg-light" aria-labelledby="dropdownActionsButton" style="min-width: 260px; left: -260px !important; margin-top: 40px;">
-      <% if current_user %>  
-        <h6 class="dropdown-header">Azioni</h6>
-        <% if policy(game).edit? %>  
-          <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(game), class: "dropdown-item" %>
-          <%= link_to icon('fas fa-paint-brush fa-fw text-muted', 'modifica prese'), edit_pinnings_game_path(game), class: "dropdown-item" %>
-          <%= link_to icon('fas fa-trash fa-fw text-muted', "elimina"), game_path(game), method: :delete, class: "dropdown-item", data: {confirm: 'Siete sicuri di voler cancellare?'} %>
-        <% end %>
-        <% Reaction.each_types do |t| %>
-          <%= link_to_game_reaction(game, t) %>
-        <% end %>
-        <%= modal_link_to icon('far fa-comment fa-fw text-muted', ' aggiungi un tuo commento'), new_game_comment_path(game), addclass: 'dropdown-item' %>  
-      <% else %>
-        <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path, class: 'dropdown-item' %>
-      <% end %>
-    </div>
-  </div>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-light ml-3 pt-0" data-toggle="modal" data-target="#modal-actions">
+		<span style="font-size: 22px"><%= icon "fas fa-ellipsis-v", bold: true %></span>
+	</button>
+
+	<div class="modal fade" id="modal-actions" tabindex="-1" role="dialog" aria-labelledby="ModalActions" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<% if current_user %>  
+						<h6>Azioni</h6>
+						<% if policy(game).edit? %>  
+              <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(game) %> <br/>
+              <%= link_to icon('fas fa-paint-brush fa-fw text-muted', 'modifica prese'), edit_pinnings_game_path(game) %> <br/>
+						<% end %>
+						<% Reaction.each_types do |t| %>
+              <%= link_to_game_reaction(game, t) %> <br/>
+						<% end %>
+            <%= link_to icon('far fa-comment fa-fw text-muted', ' aggiungi un tuo commento'), new_game_comment_path(game) %> <br/> 
+						<% if policy(game).destroy? %>  
+              <%= link_to icon('fas fa-trash fa-fw text-muted', "elimina"), game_path(game), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %> <br/> 
+						<% end %>
+					<% else %>
+            <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path %> <br/>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
