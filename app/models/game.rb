@@ -6,12 +6,14 @@ class Game < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   has_one_attached :image
+  has_one_attached :pinned_image
 
   serialize :pinnings, JSON
   serialize :cache_reactions_counts, Hash
   serialize :tags, Array
 
   validates :name, uniqueness: { message: "C'è già un blocco con questo nome.", case_sensitive: false }
+
   before_save :clean_tags
 
   @@possible_tags = [:sit_start, :two_hands_start, :free_feet]
@@ -65,4 +67,28 @@ class Game < ApplicationRecord
       end
     end
   end
+
+  # def image_preview_filename
+  #   File.join Rails.root, 'public', 'pinnings', "#{self.id}.png"
+  # end
+
+  # def image_preview_url
+  #   Rails.configuration.relative_url_root + "/pinnings/#{self.id}.png"
+  # end
+
+  CHAR_TO_SKIP = "data:image/png;base64,".size
+  def create_pinned_image(img)
+    blob = Base64.decode64(img[CHAR_TO_SKIP..-1])
+    pinning_image = MiniMagick::Image.read(blob)
+    wall_image    = MiniMagick::Image.new(ActiveStorage::Blob.service.send(:path_for, self.image.key))
+    result = wall_image.composite(pinning_image) do |c|
+      c.compose "Atop" # OverCompositeOp
+    end
+    self.pinned_image.attach(io: File.open(result.path), filename: "pinned_image_#{self.id}")
+  end
 end
+
+# convert -compress None big.jpg -crop 200x160+160+80 small.jpg -compose atop -composite result.jpg
+# convert rose: -gravity Center  -crop 32x32+0+0 +repage  crop_center.gif
+
+
