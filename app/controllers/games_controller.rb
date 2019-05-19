@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :get_game_and_check_permission, only: [:show, :edit, :update, :destroy, :edit_pinnings, :pinnings]
+  before_action :resize_image, only: [:create, :update]
   skip_before_action :verify_authenticity_token, only: [:pinnings]
 
   def index
@@ -73,6 +74,7 @@ class GamesController < ApplicationController
   def pinnings
     image = params[:image]
     @game.update(pinnings: params[:holds])
+    @game.create_pinned_image(image)
     render json: {}, status: :ok
   end
 
@@ -82,16 +84,18 @@ class GamesController < ApplicationController
     p = [:name, :description, :color_id, :user_id, :image, :sit_start, :two_hands_start, :free_feet]
     p << :competition if user_manager?
     p << :user_id if user_admin?
-    resize_image
     params[:game].permit(p)
   end
 
+  # FIXME 
   def resize_image
     if _i = params[:game][:image] 
       image = MiniMagick::Image.new(_i.tempfile.path)
       if image.height < image.width and image.height > 800
+        logger.info("image.resize height 800")
         image.resize "x800"
       elsif image.width < image.height and image.width > 800
+        logger.info("image.resize width 800")
         image.resize "800x"
       end
     end
