@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
     @game = Game.find(params[:game_id])
     @comment = @game.comments.new
     authorize @comment
-    render layout: false if modal_page?
   end
 
   def create 
