@@ -1624,9 +1624,13 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
 
-"climbing-holds-pinner.js@https://github.com/donapieppo/climbing-holds-pinner.js.git":
+climbing-holds-pinner.js@/home/rails/climbing-holds-pinner.js/:
   version "0.0.1"
-  resolved "https://github.com/donapieppo/climbing-holds-pinner.js.git#2bd0d2cc6f258ea8d89050e9ad535b262c7c5acd"
+  dependencies:
+    konva "^3.2.6"
+
+"climbing-holds-pinner.js@file:../climbing-holds-pinner.js":
+  version "0.0.1"
   dependencies:
     konva "^3.2.6"
 
