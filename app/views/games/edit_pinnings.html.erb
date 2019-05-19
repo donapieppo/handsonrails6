@@ -11,7 +11,8 @@
 <div id="canvasDiv" style="margin: 60px auto; width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
 
 <script>
-   const holds_pinner = new window.HoldsPinner('canvasDiv', <%= width %>, <%= height %>);
+   const holds_pinner = new HoldsPinner({target: 'canvasDiv', width: <%= width %>, height: <%= height %>});
+   console.log(holds_pinner);
 
    holds_pinner.set_editable();
 
@@ -49,12 +50,9 @@
        console.log(response);
        if (response.statusText === 'OK') {
          window.location.href = "<%= game_path(@game) %>";
-         //window.location.href = result['image'];
        };
      });
    }
 </script>
-
-<%# document.write('<img src="'+img+'"/>'); %>
 
 </div><!-- container -->
