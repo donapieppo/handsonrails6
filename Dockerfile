@@ -4,7 +4,7 @@ MAINTAINER Donapieppo <donapieppo@yahoo.it>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-    && apt-get install -y -y --no-install-recommends mysql-client libmariadbclient18 git nodejs apt-transport-https vim  
+    && apt-get install -y -y --no-install-recommends mysql-client libmariadbclient18 git nodejs apt-transport-https vim locales
 
 RUN echo 'deb https://deb.nodesource.com/node_10.x stretch main' > /etc/apt/sources.list.d/nodesource.list
 RUN echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
