@@ -38,7 +38,7 @@ module GameHelper
 
   def link_to_game_reaction(game, what)
     icon = game_reaction_icon(what, reacted: (current_user && current_user.has_reactions?(game, what)))
-    link_to icon + " " + t(what), toggle_game_reactions_path(game, w: what), remote: true, class: 'dropdown-item'
+    link_to icon + " " + t(what), toggle_game_reactions_path(game, w: what), remote: true
   end
 
   def game_reaction(game, what)
