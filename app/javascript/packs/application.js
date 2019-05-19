@@ -13,13 +13,13 @@ require("konva")
 
 // ./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js
 require("@fortawesome/fontawesome-free")
+
 import 'bootstrap';
 import HoldsPinner from 'climbing-holds-pinner.js';
+
 window.HoldsPinner = HoldsPinner;
+window.$ = $;
 
 import './src/application.scss';
-
-// TODO refactor without window
-//import HoldsPinner from './holds_pinner';
 
 // https://rossta.net/blog/from-sprockets-to-webpack.html
