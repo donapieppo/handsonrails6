@@ -36,7 +36,11 @@ class GamesController < ApplicationController
     @game.user_id = current_user.id unless user_admin?
     authorize @game
     if @game.save
-      redirect_to game_path(@game)
+      if @game.image.attached?
+        redirect_to edit_pinnings_game_path(@game)
+      else
+        redirect_to game_path(@game)
+      end
     else
       render action: :new
     end
