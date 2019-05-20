@@ -99,3 +99,13 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
   @extend .text-success;
 }
 
+
+.pinning-action-button {
+  width: 100px;
+  padding: 5px;
+  margin: 3px;
+  display: block;
+}
+.pinning-selected-button {
+  background-color: green;
+}
