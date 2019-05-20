@@ -4,7 +4,11 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
 .menu-button {
   @extend .btn;
   @extend .btn-info;
@@ -101,11 +105,13 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 
 
 .pinning-action-button {
+  @extend .btn;
+  @extend .btn-secondary;
   width: 100px;
   padding: 5px;
   margin: 3px;
   display: block;
 }
 .pinning-selected-button {
-  background-color: green;
+  @extend .btn-success;
 }
