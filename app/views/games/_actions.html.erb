@@ -12,7 +12,9 @@
 						<h6>Azioni</h6>
 						<% if policy(game).edit? %>  
               <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(game) %> <br/>
-              <%= link_to icon('fas fa-paint-brush fa-fw text-muted', 'modifica prese'), edit_pinnings_game_path(game) %> <br/>
+              <% if game.image.attached? %>  
+                <%= link_to icon('fas fa-paint-brush fa-fw text-muted', 'modifica prese'), edit_pinnings_game_path(game) %> <br/>
+              <% end %>
 						<% end %>
 						<% Reaction.each_types do |t| %>
               <%= link_to_game_reaction(game, t) %> <br/>
