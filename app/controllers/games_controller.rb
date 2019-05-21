@@ -6,12 +6,12 @@ class GamesController < ApplicationController
   def index
     @games = Game.includes(:user).with_attached_image
     if params[:color_id]
-      @games = @games.where(color_id: params[:color_id]).order('games.created_at desc, games.name')
+      @games = @games.where(color_id: params[:color_id]).order('games.name')
     elsif params[:user_id]
-      @games = @games.where(user_id: params[:user_id]).order('games.created_at desc, games.name')
+      @games = @games.where(user_id: params[:user_id]).order('games.name')
     end
     if params[:competition] and user_manager?
-      @games = @games.where(competition: true).order('games.color_id, games.name')
+      @games = @games.where(competition: true).order('games.name')
     end
     unless user_manager?
       @games = @games.to_show_to_anyone
