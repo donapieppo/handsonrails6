@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.integer "color_id", unsigned: true
     t.integer "user_id", unsigned: true
     t.text "pinnings"
+    t.string "pinnings_image", limit: 200
     t.string "tags", limit: 250
     t.boolean "competition"
     t.string "cache_reactions_counts", limit: 250
