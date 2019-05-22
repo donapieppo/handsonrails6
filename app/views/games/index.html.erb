@@ -1,6 +1,6 @@
 <div class="games-list">
   <% @games.each do |game| %>  
-    <div class="card mb-3" style="border-color: <%= game.color.name %>">
+    <div class="card mb-3">
       <div class="card-header">
         <%= game_icon(game) %> 
         <span class="game-title"><%= game.name.upcase %></span>
