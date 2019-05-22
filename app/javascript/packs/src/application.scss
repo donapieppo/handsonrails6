@@ -33,17 +33,40 @@ body {
 .home-button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
+
 .games-list {
+  margin: auto;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   .card {
+    width: 100%;
     box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 6px 12px 0 rgba(0,0,0,0.19);  
   }
-  @extend .card-columns;
-  column-count: 1;
   @include media-breakpoint-up(lg) {
-    flex-direction: row;
-    column-count: 4;
+    .card {
+      width: 31%;
+      margin: 1%;
+    }
+  }
+  @include media-breakpoint-up(xl) {
+    .card {
+      width: 23%;
+      margin: 1%;
+    }
   }
 }
+
+// .games-list {
+//   .card {
+//     box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 6px 12px 0 rgba(0,0,0,0.19);  
+//   }
+//   @extend .card-columns;
+//   column-count: 1;
+//   @include media-breakpoint-up(lg) {
+//     column-count: 4;
+//   }
+// }
 .game {
   @extend .mb-5;
   .game-card {
@@ -71,9 +94,10 @@ body {
   }
 }
 .game-title {
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 .game-author {
   @extend .float-right;
@@ -106,12 +130,23 @@ body {
 
 .pinning-action-button {
   @extend .btn;
-  @extend .btn-secondary;
-  width: 100px;
-  padding: 5px;
+  @extend .btn-light;
+  width: 70px;
+  padding: 5px 3px;
   margin: 3px;
   display: block;
 }
 .pinning-selected-button {
-  @extend .btn-success;
+  @extend .bg-primary;
+  @extend .text-white
+  // @extend .btn-primary;
+}
+
+.game-list-actions {
+  a {
+    // @extend .list-group-item;
+    // @extend .list-group-item-action;
+    display: block;
+    @extend .py-1;
+  }
 }
