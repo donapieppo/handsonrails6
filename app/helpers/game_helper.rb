@@ -3,11 +3,8 @@ module GameHelper
   end
 
   def game_icon(game)
-    if game.competition
-      content_tag(:i, '', class: 'fas fa-trophy p-2', style: "font-size: 21px; border: 4px solid #{game.color.name}") 
-    else
-      content_tag(:i, '', class: 'fas fa-circle p-2', style: "font-size: 21px; color: #{game.color.name}") 
-    end
+    _icon = game.competition ? 'fas fa-trophy p-2' : 'fas fa-circle p-2'
+    content_tag(:i, '', class: _icon, style: "font-size: 18px; color: #{game.color.name}") 
   end
 
   def qrcode(game)
