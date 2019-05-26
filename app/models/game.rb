@@ -60,7 +60,7 @@ class Game < ApplicationRecord
       self.tags.include?(t)
     end
     self.define_method("#{t}=") do |v|
-      if v and v != "0" and v != 0
+      if v && v != '0' && v != 0
         self.tags << t
       else
         self.tags.delete(t)
