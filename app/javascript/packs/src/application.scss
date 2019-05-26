@@ -57,16 +57,6 @@ body {
   }
 }
 
-// .games-list {
-//   .card {
-//     box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 6px 12px 0 rgba(0,0,0,0.19);  
-//   }
-//   @extend .card-columns;
-//   column-count: 1;
-//   @include media-breakpoint-up(lg) {
-//     column-count: 4;
-//   }
-// }
 .game {
   @extend .mb-5;
   .game-card {
@@ -137,8 +127,8 @@ body {
   display: block;
 }
 .pinning-selected-button {
-  @extend .bg-primary;
-  @extend .text-white
+  @extend .btn-primary;
+  @extend .active;
   // @extend .btn-primary;
 }
 
