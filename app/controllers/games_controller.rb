@@ -13,6 +13,9 @@ class GamesController < ApplicationController
     if params[:competition] and user_manager?
       @games = @games.where(competition: true).order('games.name')
     end
+    if params[:prototype]
+      @games = @games.where('name like "%prototype%"').order('games.name')
+    end
     unless user_manager?
       @games = @games.to_show_to_anyone
     end
@@ -37,6 +40,8 @@ class GamesController < ApplicationController
     authorize @game
     if @game.save
       if @game.image.attached?
+        # FIXME
+        sleep 1
         redirect_to edit_pinnings_game_path(@game)
       else
         redirect_to game_path(@game)
