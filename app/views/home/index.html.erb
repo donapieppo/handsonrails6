@@ -11,6 +11,9 @@
 
   <div class="row m-3">
     <div class="col-md-4">
+      <%= link_to 'Prototype 2019', games_path(prototype: 1), class: 'home-button', style: "border-color: green"%>  
+    </div>
+    <div class="col-md-4">
       <div class="" style="font-size: 14px;">
         <p>Ultimi blocchi/giri: </p>
         <div>
@@ -36,14 +39,13 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <%= link_to 'Prototype 2019', games_path(prototype: 1), class: 'home-button', style: "border-color: green"%>  
-    </div>
   </div>
-  <div class="alert alert-warning">
-    <h4>Regole generali</h4>
-    <p>Per considerare chiuso un blocco / giro è necessario tenere la presa indicata come TOP con entrambe le mani per almeno 2 secondi.</p>
-    <p>Intendiamo "giro" un blocco con i piedi liberi.</p>
+  <div class="general-roules">
+    <p>
+      <strong>Regole generali:</strong>
+      Per considerare chiuso un blocco / giro è necessario tenere la presa indicata come TOP con entrambe le mani per almeno 2 secondi.<br/>
+      Si intende "giro" un blocco con i piedi liberi.
+    </p>
   </div>
 
 </div>
