@@ -41,17 +41,17 @@ body {
   justify-content: flex-start;
   .card {
     width: 100%;
-    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 6px 12px 0 rgba(0,0,0,0.19);  
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.24), 0 4px 8px 0 rgba(0,0,0,0.19);  
   }
   @include media-breakpoint-up(lg) {
     .card {
-      width: 31%;
+      width: 48%;
       margin: 1%;
     }
   }
   @include media-breakpoint-up(xl) {
     .card {
-      width: 23%;
+      width: 31%;
       margin: 1%;
     }
   }
@@ -139,4 +139,10 @@ body {
     display: block;
     @extend .py-1;
   }
+}
+.general-roules {
+  @extend .alert;
+  @extend .alert-warning;
+  margin: 10px 50px;
+  font-size: 13px;
 }
