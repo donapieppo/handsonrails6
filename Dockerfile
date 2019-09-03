@@ -17,20 +17,14 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
-COPY Gemfile* ./
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
 RUN bundle install
+RUN yarn install --check-files
+
 COPY . .
 
 # configuration
 RUN ["/bin/cp", "doc/docker_database.yml", "config/database.yml"]
 RUN ["/bin/cp", "doc/docker_seeds.rb", "db/seeds.rb"]
-
-# old without docker compose
-# db
-#RUN ["rake", "db:create"]
-#RUN ["rake", "db:schema:load"]
-#EXPOSE 3000
-#CMD ["rails", "server", "-b", "0.0.0.0"]
-
 
 
