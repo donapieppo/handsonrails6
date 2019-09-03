@@ -23,10 +23,10 @@
               <% if policy(game).destroy? %>  
                 <%= link_to icon('fas fa-trash fa-fw text-muted', "elimina"), game_path(game), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %> 
               <% end %>
-            <% else %>
-              <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path %> 
-            <% end %>
             </div>
+          <% else %>
+            <%= link_to icon("fas fa-sign-in-alt fa-fw", ' accedi per commentare'), login_path %> 
+          <% end %>
         </div>
       </div>
     </div>
