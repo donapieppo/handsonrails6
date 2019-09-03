@@ -13,9 +13,9 @@
 
 <script>
    const holds_pinner = new HoldsPinner({target: 'canvasDiv', width: <%= width %>, height: <%= height %>, editable: true});
-   console.log(holds_pinner);
-
    const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
+   console.log('startingHolds')
+   console.log(startingHolds)
 
    holds_pinner.setup(startingHolds);
 
