@@ -11,7 +11,7 @@
     "climbing-holds-pinner.js": "donapieppo/climbing-holds-pinner.js.git",
     "jquery": "^3.4.1",
     "jquery-ujs": "^1.2.2",
-    "konva": "^3.2.6",
+    "konva": "^4.0",
     "popper.js": "^1.15.0",
     "turbolinks": "^5.2.0"
   },
