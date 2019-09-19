@@ -12,7 +12,6 @@
 
     <div class="game-body m-0 p-0">
       <% if @game.pinned_image.attached? %>  
-        <%# <div id="canvasDiv" style="background-image: url('<%= url_for(@game.image) %1>'); background-size: contain"></div> %>
         <%= image_tag @game.pinned_image, class: "img-fluid" %>  
       <% elsif @game.image.attached? %>
         <%= image_tag @game.image, class: "img-fluid" %>  
