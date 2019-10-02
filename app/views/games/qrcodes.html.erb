@@ -1,7 +1,12 @@
 <div class="container">
   <% Game.find_each do |game| %>  
     <% bgcolor, textcolor =  bg_and_color(game.color) %>  
-    <div style="padding: 5px; color: <%= textcolor %>; background-color: <%= bgcolor %>; width: 400px; border: 1px solid black">
+    <div style="padding: 5px; color: <%= textcolor %>; 
+                background-color: <%= bgcolor %>; 
+                width: 260px; 
+                border: 1px solid black; 
+                float: left; 
+                text-align: center">
       <div class="m-1"><%= qrcode(game) %></div>
       <div class="font-weight-bold mx-3"><%= game.name.upcase %></div>
     </div>
