@@ -1,0 +1,17 @@
+    <% bgcolor, textcolor =  bg_and_color(game.color) %>  
+    <div style="padding: 5px; color: <%= textcolor %>; 
+                background-color: <%= bgcolor %>; 
+                width: 260px; 
+                border: 1px solid black; 
+                float: left; 
+                text-align: center">
+      <div class="m-2">
+        <%= qrcode(game) %>
+      </div>
+      <div class="font-weight-bold mx-3">
+        <%= game.name.upcase %> 
+        <%= '(giro)' if game.free_feet %>  <br/>
+        <small><%= game.two_hands_start ? 'partenza accoppiata' : '&nbsp'.html_safe %> </small>
+      </div>
+    </div>
+
