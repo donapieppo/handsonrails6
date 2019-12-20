@@ -4,11 +4,13 @@
                 width: 260px; 
                 border: 1px solid black; 
                 float: left; 
+                font-size: 21px;
+                font-weight: bold;
                 text-align: center">
       <div class="m-2">
         <%= qrcode(game) %>
       </div>
-      <div class="font-weight-bold mx-3">
+      <div class="mx-3">
         <%= game.name.upcase %> 
         <%= '(giro)' if game.free_feet %>  <br/>
         <small><%= game.two_hands_start ? 'partenza accoppiata' : '&nbsp'.html_safe %> </small>

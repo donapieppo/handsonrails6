@@ -72,6 +72,7 @@ class GamesController < ApplicationController
   end
 
   def qrcodes
+    @no_menu = true
   end
 
   def edit_pinnings
