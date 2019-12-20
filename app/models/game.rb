@@ -27,7 +27,11 @@ class Game < ApplicationRecord
   end
 
   def show_to_anyone?
-    self.competition == IN_COMPETITION
+    if self.competition
+     || self.competition == IN_COMPETITION
+    else
+      true
+    end
   end
 
   def update_reactions_counts
