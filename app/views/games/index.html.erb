@@ -1,8 +1,8 @@
 <div class="container">
 <div class="games-list">
   <% @games.each do |game| %>  
-    <div class="card mb-3">
-      <div class="card-header">
+    <div class="game-card mb-3">
+      <div class="game-card-header">
         <%= game_icon(game) %> 
         <span class="game-title"><%= game.name.upcase %></span>
         <span class="float-right"><small><%= l game.created_at %></small></span>
