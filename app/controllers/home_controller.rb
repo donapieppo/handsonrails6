@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    @last_games = Game.order('games.created_at desc').includes(:user, :color).limit(5)
+    @last_games = Game.order('games.created_at desc').includes(:user, :color).limit(6)
     unless user_manager?
       @last_games = @last_games.to_show_to_anyone
     end
