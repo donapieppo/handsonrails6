@@ -28,7 +28,7 @@ class Game < ApplicationRecord
 
   def show_to_anyone?
     if self.competition
-     || self.competition == IN_COMPETITION
+      self.competition == IN_COMPETITION
     else
       true
     end
