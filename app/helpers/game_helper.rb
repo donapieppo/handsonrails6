@@ -1,10 +1,10 @@
 module GameHelper
-  def game_color(game)
-  end
-
   def game_icon(game)
-    _icon = game.competition ? 'fas fa-trophy p-2' : 'fas fa-circle p-2'
-    content_tag(:i, '', class: _icon, style: "font-size: 18px; color: #{game.color.name}") 
+    if game.competition
+      color_competition(game.color)
+    else
+      color_bullet(game.color)
+    end
   end
 
   def qrcode(game)

@@ -1,6 +1,10 @@
 module ApplicationHelper
-  def color_link(color)
-    link_to content_tag(:i, '', class: 'fas fa-circle', style: "font-size: 16px; color: #{color.name}"), games_path(color_id: color.id), class: 'nav-link p-1' 
+  def color_bullet(color)
+    content_tag :i, '', class: 'fas fa-circle', style: "font-size: 18px; color: #{color.to_html}"
+  end
+
+  def color_competition(color)
+    content_tag :i, '', class: 'fas fa-trophy', style: "font-size: 18px; color: #{color.to_html}"
   end
 
   def link_to_delete(name = "", url, button: false)
