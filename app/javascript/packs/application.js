@@ -12,7 +12,7 @@ require("@rails/ujs").start()
 require("konva")
 
 // ./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js
-require("@fortawesome/fontawesome-free")
+// require("@fortawesome/fontawesome-free")
 
 import 'bootstrap';
 import HoldsPinner from 'climbing-holds-pinner.js';
@@ -20,6 +20,6 @@ import HoldsPinner from 'climbing-holds-pinner.js';
 window.HoldsPinner = HoldsPinner;
 window.$ = $;
 
-import './src/application.scss';
+import '../../stylesheets/application.scss';
 
 // https://rossta.net/blog/from-sprockets-to-webpack.html

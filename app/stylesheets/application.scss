@@ -1,0 +1,144 @@
+@import '~bootstrap/scss/bootstrap';
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'; 
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+@import 'colors';
+@import 'home';
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+.menu-button {
+  @extend .btn;
+  @extend .btn-info;
+}
+.dropdown-home-menu {
+  @extend .dropdown-menu;
+  @extend .dropdown-menu-right;
+  background-color: $dropdown-bg-color;
+}
+.btn-login {
+  @extend .btn;
+  background-color: $main-button;
+}
+.home-last-games {
+  @extend .list-group;
+  @extend .mx-0;
+}
+.home-last-games-item {
+  @extend .list-group-item-action;
+}
+
+.games-list {
+  margin: auto;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  .game-card {
+    @extend .card;
+    width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.24), 0 4px 8px 0 rgba(0,0,0,0.19);  
+    .game-card-header {
+      @extend .card-header;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    .card {
+      width: 48%;
+      margin: 1%;
+    }
+  }
+  @include media-breakpoint-up(xl) {
+    .card {
+      width: 31%;
+      margin: 1%;
+    }
+  }
+}
+
+.game {
+  @extend .mb-5;
+  .game-card {
+    margin: auto;
+    @extend .card;
+    max-width: 800px;
+  }
+  .game-header {
+    @extend .card-header;
+  }
+  .game-body {
+    @extend .card-body;
+  }
+  .game-footer {
+    @extend .card-footer;
+  }
+  .game-reactions {
+    font-size: 21px;
+  }
+  .comments {
+    margin: auto;
+    max-width: 800px;
+    font-size: 14px;
+    @extend .px-3;
+  }
+}
+.game-title {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.game-author {
+  @extend .float-right;
+  @extend .text-muted;
+}
+.tag-item {
+  @extend .badge;
+  @extend .badge-warning;
+  @extend .py-1;
+  @extend .px-2;
+}
+.tag-item2 {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid #28a745;
+  line-height: 1.5;
+  border-radius: .25rem;
+  font-weight: 80;
+  font-size: 75%;
+  padding: .100rem .30rem;
+  margin: .100rem .30rem;
+  @extend .my-1;
+}
+.reacted {
+  color: rgb(209, 236, 241);
+  @extend .text-success;
+}
+
+.pinning-action-button {
+  @extend .btn;
+  background-color: '#ccc';
+  width: 70px;
+  padding: 5px 3px;
+  margin: 3px;
+  display: block;
+}
+.pinning-selected-button {
+  @extend .btn-primary;
+  @extend .active;
+}
+
+.game-list-actions {
+  a {
+    // @extend .list-group-item;
+    // @extend .list-group-item-action;
+    display: block;
+    @extend .py-1;
+  }
+}

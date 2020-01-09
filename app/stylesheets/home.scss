@@ -1,0 +1,54 @@
+.home-buttons {
+  @extend .row;
+  @extend .mx-auto;
+  @extend .my-lg-5;
+  max-width: 800px;
+}
+.home-button-container {
+  @extend .col-6;
+  @extend .col-md-4;
+  @extend .my-0;
+  @extend .p-1;
+}
+.home-button {
+  @extend .btn;
+  @extend .btn-lg;
+  @extend .py-3;
+  border-radius: 20px;
+  width: 100%;
+}
+.home-button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+.last-games-container {
+  @extend .col-md-6;
+  @extend .offset-md-3;
+  @extend .mt-3;
+  font-size: 14px;
+  .last-games-list-group {
+    @extend .list-group;
+    @extend .px-0;
+    @extend .mx-0;
+    .last-games-list-item {
+      @extend .list-group-item;
+      @extend .list-group-item-action;
+      @extend .px-2;
+    }
+  }
+}
+.last-comments-container {
+  @extend .col-md-6;
+  @extend .offset-md-3;
+  @extend .mt-3;
+  font-size: 14px;
+}
+
+.general-roules {
+  @extend .alert;
+  @extend .alert-warning;
+  margin: 30px auto;
+  max-width: 800px; 
+  font-size: 14px;
+}
