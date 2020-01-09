@@ -1,11 +1,14 @@
-<nav class="navbar navbar-light bg-white">
+<nav class="navbar navbar-light sticky-top bg-white">
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag 'eden_logo.jpg' %> 
   <% end %>
+
   <% cache "colors_nav" do %>
     <ul class="nav">
       <% Color.find_each do |color| %>
-        <li class="nav-item"><%= color_link(color) %></li>
+        <li class="nav-item">
+          <%= link_to color_bullet(color), games_path(color_id: color.id), class: 'nav-link p-1' %>
+        </li>
       <% end %>
     </ul>
   <% end %>
