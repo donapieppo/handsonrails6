@@ -22,6 +22,8 @@ class Game < ApplicationRecord
 
   scope :to_show_to_anyone, -> { where(competition: IN_COMPETITION) }
 
+  YOUTUBE_REGEX = %r{https://www\.youtube\.com/watch\?v=(?<video_code>[0-9a-zA-Z_-]+)}
+
   def to_s
     self.name
   end
@@ -89,6 +91,12 @@ class Game < ApplicationRecord
       c.compose "Atop" # OverCompositeOp
     end
     self.pinned_image.attach(io: File.open(result.path), filename: "pinned_image_#{self.id}")
+  end
+
+  def embed_video_url
+    if m = video_url.match(YOUTUBE_REGEX)
+      return "https://www.youtube.com/embed/#{m[:video_code]}"
+    end
   end
 end
 
