@@ -6,18 +6,24 @@ class GamesController < ApplicationController
   def index
     @games = Game.includes(:user).with_attached_image
     if params[:color_id]
-      @games = @games.where(color_id: params[:color_id]).order('games.name')
+      @games = @games.where(color_id: params[:color_id])
     elsif params[:user_id]
-      @games = @games.where(user_id: params[:user_id]).order('games.name')
+      @games = @games.where(user_id: params[:user_id])
     end
     if params[:competition] and user_manager?
-      @games = @games.where(competition: true).order('games.name')
+      @games = @games.where(competition: true)
     end
     if params[:prototype]
-      @games = @games.where('name like "%prototype%"').order('games.name')
+      @games = @games.where('name like "%prototype%"')
     end
     unless user_manager?
       @games = @games.to_show_to_anyone
+    end
+    case params[:o]
+    when 'name'
+      @games = @games.order('games.name')
+    when 'date'
+      @games = @games.order('games.created_at desc')
     end
   end
 
@@ -91,7 +97,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    p = [:name, :description, :color_id, :user_id, :image, :sit_start, :two_hands_start, :free_feet]
+    p = [:name, :description, :color_id, :user_id, :image, :video_url, :sit_start, :two_hands_start, :free_feet]
     p << :competition if user_manager?
     p << :user_id if user_admin?
     params[:game].permit(p)
