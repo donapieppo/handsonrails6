@@ -23,6 +23,7 @@ it:
         sit_start: partenza da terra
         free_feet: piedi liberi
         two_hands_start: partenza accoppiata     
+        video_url: video
       user:
         name: Nome
         manager: Nel direttivo
@@ -36,6 +37,7 @@ it:
         sit_start: 'Indica la partenza col culo a terra.'
         free_feet: 'Si tratta di un giro e non di un vero e proprio blocco.'
         two_hands_start: 'Entrambe le mani sulla presa di partenza.'
+        video_url: 'Indirizzo su youtube del video.'
 
   
   like: mi piace
