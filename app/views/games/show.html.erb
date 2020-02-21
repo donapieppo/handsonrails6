@@ -41,19 +41,24 @@
         <% end %>
       </div>
       <div class="font-italic"> <%= @game.description %> </div>
-    </div>
-  </div>
-  <div class="comments">
-    <p class="font-weigh-bold">Commenti</p>
-    <div class="group-list">
-      <% @comments.each do |comment| %>  
-        <div class="group-list-item">
-          <small><b><%= comment.user.name %>:</b></small> <%= comment.name %>
-        <% if policy(comment).destroy? %>
-          <span class="float-right"><%= link_to_delete comment_path(comment) %></span>
-        <% end %>
+      <% if @game.video_url %>  
+        <div class="embed-responsive embed-responsive-16by9 my-3" style="margin: auto">
+          <iframe class="embed-responsive-item" src="<%= @game.embed_video_url %>" frameborder="0"></iframe>
         </div>
       <% end %>
+    </div>
+    <div class="comments">
+      <p class="font-weigh-bold">Commenti</p>
+      <div class="group-list">
+        <% @comments.each do |comment| %>  
+          <div class="group-list-item">
+            <small><b><%= comment.user.name %>:</b></small> <%= comment.name %>
+          <% if policy(comment).destroy? %>
+            <span class="float-right"><%= link_to_delete comment_path(comment) %></span>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
