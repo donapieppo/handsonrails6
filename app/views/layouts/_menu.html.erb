@@ -20,11 +20,11 @@
       </div>
       <div class="dropdown-menu dropdown-menu-right dropdown-home-menu" aria-labelledby="dropdownMenuButton">
         <%= link_to icon("fas fa-plus fa-fw", 'nuovo blocco'), new_game_path, class: "dropdown-item" %>
-        <%= link_to icon("fas fa-qrcode fa-fw", 'qrcodes'), qrcodes_games_path, class: "dropdown-item" %>
         <% if user_manager? %>  
-          <%= link_to icon("fas fa-trophy fa-fw", 'blocchi prossima gara'), games_path(competition: 1), class: "dropdown-item" %>
+          <%= link_to icon("fas fa-qrcode fa-fw", 'qrcodes'), qrcodes_games_path, class: "dropdown-item" %>
+          <%# <%= link_to icon("fas fa-trophy fa-fw", 'blocchi prossima gara'), games_path(competition: 1), class: "dropdown-item" %1> %>
         <% end %>
-        <%= link_to icon("fas fa-trophy fa-fw", 'prototype 2019'), games_path(prototype: 1), class: "dropdown-item" %>
+        <%# <%= link_to icon("fas fa-trophy fa-fw", 'prototype 2019'), games_path(prototype: 1), class: "dropdown-item" %1> %>
         <% if user_admin? %>  
           <%= link_to icon("fas fa-users fa-fw", 'users'), users_path, class: "dropdown-item" %>
         <% end %>
