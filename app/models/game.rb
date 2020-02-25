@@ -22,7 +22,13 @@ class Game < ApplicationRecord
 
   scope :to_show_to_anyone, -> { where(competition: IN_COMPETITION) }
 
-  YOUTUBE_REGEX = %r{https://www\.youtube\.com/watch\?v=(?<video_code>[0-9a-zA-Z_-]+)}
+  # https://www.youtube.com/watch?v=12345678901
+  # http://youtu.be/12345678901
+  # https://youtube.com/HsalG94DpfE
+  # www.youtube.com/embed/12345678901
+  YOUTUBE_REGEXS = [%r{https?://www\.youtube\.com/watch\?v=(?<video_code>[0-9a-zA-Z_-]{11})},
+                    %r{https?://youtu\.be/(?<video_code>[0-9a-zA-Z_-]{11})},
+                    %r{https?://(www\.)?youtube\.com/(embed/)?(?<video_code>[0-9a-zA-Z_-]{11})}]
 
   def to_s
     self.name
@@ -94,9 +100,12 @@ class Game < ApplicationRecord
   end
 
   def embed_video_url
-    if m = video_url.match(YOUTUBE_REGEX)
-      return "https://www.youtube.com/embed/#{m[:video_code]}"
+    YOUTUBE_REGEXS.each do |r|
+      if m = video_url.match(r)
+        return "https://www.youtube.com/embed/#{m[:video_code]}"
+      end
     end
+    "/"
   end
 end
 
