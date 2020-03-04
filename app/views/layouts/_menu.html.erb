@@ -7,7 +7,7 @@
     <ul class="nav">
       <% Color.find_each do |color| %>
         <li class="nav-item">
-          <%= link_to color_bullet(color), games_path(color_id: color.id), class: 'nav-link p-1' %>
+          <%= link_to color_bullet(color), color_games_path(color.id), class: 'nav-link p-1' %>
         </li>
       <% end %>
     </ul>
