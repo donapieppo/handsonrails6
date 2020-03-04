@@ -41,7 +41,7 @@
         <% end %>
       </div>
       <div class="font-italic"> <%= @game.description %> </div>
-      <% if @game.video_url %>  
+      <% unless @game.video_url.blank? %>  
         <div class="embed-responsive embed-responsive-16by9 my-3" style="margin: auto">
           <iframe class="embed-responsive-item" src="<%= @game.embed_video_url %>" frameborder="0"></iframe>
         </div>
