@@ -19,10 +19,12 @@ class GamesController < ApplicationController
     unless user_manager?
       @games = @games.to_show_to_anyone
     end
+
+    # order 
     case params[:o]
     when 'name'
       @games = @games.order('games.name')
-    when 'date'
+    else
       @games = @games.order('games.created_at desc')
     end
   end
