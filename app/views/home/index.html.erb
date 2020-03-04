@@ -32,6 +32,14 @@
       <% end %>
       </div>
     </div>
+    <div class="last-videos-container">
+      <p><strong>Ultimi video</strong></p>
+      <div class="list-group px-0 mx-0">
+        <% @last_video_games.each do |game| %>  
+          <%= link_to game.name, game_path(game.id), class: "list-group-item list-group-item-action px-2" %>  
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="general-roules">
     <p>
