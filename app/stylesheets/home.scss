@@ -45,6 +45,13 @@
   font-size: 14px;
 }
 
+.last-videos-container {
+  @extend .col-md-6;
+  @extend .offset-md-3;
+  @extend .mt-3;
+  font-size: 14px;
+}
+
 .general-roules {
   @extend .alert;
   @extend .alert-warning;
