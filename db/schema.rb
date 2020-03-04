@@ -56,10 +56,12 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.text "pinnings"
     t.string "pinnings_image", limit: 200
     t.string "video_url"
+    t.datetime "video_at"
     t.string "tags", limit: 250
     t.boolean "competition"
     t.string "cache_reactions_counts", limit: 250
     t.datetime "created_at", null: false
+    t.datetime "updated_at"
     t.index ["color_id"], name: "color_id"
     t.index ["user_id"], name: "user_id"
   end
