@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :log_current_user
 
   def current_user
-    if false or Rails.env.development? 
+    if false || Rails.env.development? 
       session[:user_id] = 1
     end
     if session[:user_id]
