@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :games
   has_many :reactions
   has_many :comments
+  has_many :bookings
 
   validates :name, uniqueness: { case_sensitive: false }
   validates :email, uniqueness: { case_sensitive: false }
