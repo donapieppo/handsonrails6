@@ -21,6 +21,18 @@ Rails.application.routes.draw do
     resources :games
   end
 
+  resources :disciplines do 
+    resources :time_slots_groups
+    resources :time_slots
+  end
+
+  resources :time_slots do
+    resources :bookings
+  end
+
+  resources :time_slots_groups
+  resources :bookings
+
   get 'login',                       to: 'logins#index',  as: :login
   get 'logins/logout',               to: 'logins#logout', as: :logout
   get 'auth/google_oauth2',          as: 'google_login'
