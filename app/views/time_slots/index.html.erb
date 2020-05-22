@@ -1,0 +1,42 @@
+<% 
+    today = Date.today
+  %>  
+
+<div class="container">
+<h1><%= @discipline %></h1>
+
+<h2>Time Slots Group</h2>
+
+<% TimeSlotsGroup.find_each do |tsb| %>  
+  <%= tsb %>  
+
+  <h2>Bookings</h2>
+
+  <% tsb.time_slots.each do |ts| %>  
+    <%= l ts.start_date, format: :hour %> -> <%= l ts.end_date, format: :hour %> 
+    (<%= link_to ts.bookings.count, time_slot_bookings_path(ts) %>  prenotati)
+    <span class="badge badge-info"><%= ts.free_places %> posti liberi</span>
+    <%= link_to 'prenota', new_time_slot_booking_path(ts) %>  
+    <br/>
+  <% end %>
+
+  <div class="calendar" style="display: none">
+  <div class="days-of-week-title">
+    <% (0..6).each do |d| %>
+      <div class="day-block <%= "day#{d}" %>">
+      <%= l today + d.day %>
+      </div>
+    <% end %>
+    </div>
+    <% (15 ... 22).each do |h| %>  
+      <div class="days-of-week">
+      <% (0..6).each do |d| %>  
+        <div class="day-block %>" style="height: 100px">
+          <%= h %>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+</div>

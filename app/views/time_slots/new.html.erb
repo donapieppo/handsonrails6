@@ -1,0 +1,11 @@
+<h1><%= @discipline %></h1>
+<div class="container">
+  <%= simple_form_for [@discipline, @time_slot], wrapper: :horizontal_form do |t| %>  
+    <%= t.input :max_number %>  
+    <%= t.input :start_date, as: :date %>  
+    <%= t.input 'start_hour' %>  
+    <%= t.input :end_hour %>  
+    <%= t.input :minutes_range %>  
+    <%= t.submit %>  
+  <% end %>
+</div>

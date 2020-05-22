@@ -1,0 +1,14 @@
+<div class="container">
+  <h1><%= @discipline %></h1>
+
+  <%= simple_form_for [@discipline, @time_slots_group] do |tsg| %>  
+    <%= tsg.input :max_number %>
+    <%= tsg.input :start_date %>
+    <%= tsg.input :end_date %>
+    <%= tsg.input :minutes %>
+    <%= tsg.input :every_minutes %>
+    <%= tsg.submit %>
+  <% end %>
+
+
+</div>

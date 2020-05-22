@@ -1,0 +1,7 @@
+<h1><%= @time_slot %></h1>
+
+<ul>
+  <% @bookings.each do |b| %>  
+    <li><%= b.user.email %> <%= link_to 'delete', booking_path(b), method: :delete %>  </li>
+  <% end %>
+</ul>
