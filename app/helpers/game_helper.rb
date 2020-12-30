@@ -30,7 +30,7 @@ module GameHelper
     when :sent
       'fas fa-lock fa-fw'
     end
-    content_tag(:i, '', class: "#{what.to_s}_icon #{icon} #{reacted}")
+    content_tag(:i, '', class: "#{what.to_s}_icon #{icon} #{reacted}", style: 'font-size: 28px')
   end
 
   def link_to_game_reaction(game, what)
