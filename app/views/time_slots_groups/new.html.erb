@@ -1,14 +1,12 @@
 <div class="container">
-  <h1><%= @discipline %></h1>
+  <h1><%= @calendar %></h1>
 
-  <%= simple_form_for [@discipline, @time_slots_group] do |tsg| %>  
+  <%= simple_form_for [@calendar, @time_slots_group] do |tsg| %>  
     <%= tsg.input :max_number %>
-    <%= tsg.input :start_date %>
-    <%= tsg.input :end_date %>
+    <%= tsg.input :start_date, minute_step: 5 %>
+    <%= tsg.input :end_date, minute_step: 5 %>
     <%= tsg.input :minutes %>
     <%= tsg.input :every_minutes %>
     <%= tsg.submit %>
   <% end %>
-
-
 </div>
