@@ -9,6 +9,7 @@
   <button id="decrease_hold_size_btn" class="pinning-action-button"><i class="fas fa-minus"></i></button> 
   <button id="undo_btn"               class="pinning-action-button"><i class="fas fa-undo"></i></button>
   <button id="save"                   class="pinning-action-button mt-2">Salva</button>
+  <button id="exit"                   class="pinning-action-button mt-2">Esci</button>
 </div>
 <div id="canvasDiv" style="margin: 60px auto; width: <%= width %>px; height: <%= height %>px; background-image: url('<%= url_for(@game.image) %>')"></div>
 
@@ -27,6 +28,7 @@
    document.querySelector('#decrease_hold_size_btn').addEventListener('click', decrease_hold_size)
    document.querySelector('#undo_btn').addEventListener('click', undo)
    document.querySelector('#save').addEventListener('click', save_holds)
+   document.querySelector('#exit').addEventListener('click', exit)
 
    function clear_selected() {
      document.querySelector('#start_hold_btn').classList.remove("pinning-selected-button");
@@ -62,6 +64,10 @@
 
     function undo() {
       holds_pinner.undo();
+    }
+
+    function exit() {
+      window.location.href = "<%= root_path %>";
     }
 
    function save_holds() {
