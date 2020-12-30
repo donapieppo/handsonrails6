@@ -5,20 +5,13 @@ class GamesController < ApplicationController
 
   def index
     @games = Game.includes(:user).with_attached_image
-    if params[:color_id]
-      @games = @games.where(color_id: params[:color_id])
-    elsif params[:user_id]
-      @games = @games.where(user_id: params[:user_id])
-    end
-    if params[:competition] and user_manager?
-      @games = @games.where(competition: true)
-    end
-    if params[:prototype]
-      @games = @games.where('name like "%prototype%"')
-    end
-    unless user_manager?
-      @games = @games.to_show_to_anyone
-    end
+
+    @games = @games.where(color_id: params[:color_id]) if params[:color_id]
+    @games = @games.where(user_id: params[:user_id]) if params[:user_id]
+
+    @games = @games.where(competition: true) if params[:competition] && user_manager?
+    @games = @games.where('name like "%prototype%"') if params[:prototype]
+    @games = @games.to_show_to_anyone unless user_manager?
 
     # order 
     case params[:o]
