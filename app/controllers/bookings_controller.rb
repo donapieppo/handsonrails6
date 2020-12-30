@@ -10,12 +10,17 @@ class BookingsController < ApplicationController
     @ts = TimeSlot.find(params[:time_slot_id])
     @booking = current_user.bookings.new(time_slot_id: @ts.id)
     if @booking.save
-      redirect_to discipline_time_slots_path(@ts.discipline_id) and return
+      flash[:notice] = "Registrazione corretta"
+    else
+      flash[:alert] = @booking.errors[:base]
     end
+    redirect_to calendar_time_slots_path(@ts.calendar_id) and return
   end
 
   def destroy
-
+    booking = Booking.find(params[:id])
+    booking.delete
+    redirect_to time_slot_bookings_path(booking.time_slot_id)
   end
 end
 
