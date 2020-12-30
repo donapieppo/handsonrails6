@@ -1,20 +1,15 @@
 class TimeSlotsController < ApplicationController
-  before_action :get_discipline
+  before_action :get_calendar
 
   def index
-    @time_slots = @discipline.time_slots
+    @time_slots_groups = @calendar.time_slots_groups.includes(:time_slots)
     authorize :time_slot
-  end
-
-  def new
-    @time_slot = TimeSlot.new
-    authorize @time_slot
   end
 
   private
 
-  def get_discipline
-    @discipline = Discipline.find(params[:discipline_id])
+  def get_calendar
+    @calendar = Calendar.find(params[:calendar_id])
   end
 
 end
