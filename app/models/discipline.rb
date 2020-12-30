@@ -1,6 +1,6 @@
 class Discipline < ApplicationRecord
-  has_many :time_slots
-  has_many :time_slots_groups
+  has_many :calendars_disciplines
+  has_many :calendars, through: :calendars_disciplines
 
   def to_s
     name

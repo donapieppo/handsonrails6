@@ -1,6 +1,6 @@
 class TimeSlot < ApplicationRecord
   belongs_to :time_slots_group
-  belongs_to :discipline
+  belongs_to :calendar
   has_many :bookings
 
   def to_s

@@ -1,13 +1,13 @@
 class TimeSlotsGroup < ApplicationRecord
   has_many :time_slots
-  belongs_to :discipline
+  belongs_to :calendar
 
   before_save :check_uniqueness,
               :check_single_day
   after_save :create_slots
 
   def to_s
-    I18n.l(self.start_date) + "->" + I18n.l(self.end_date)
+    I18n.l(self.start_date) 
   end
 
   def check_uniqueness
@@ -27,7 +27,7 @@ class TimeSlotsGroup < ApplicationRecord
     while (s = self.start_date + (n * self.every_minutes).minutes) &&
           (e = self.start_date + (n * self.every_minutes + self.minutes).minutes) <= self.end_date
       ts = TimeSlot.create(time_slots_group_id: self.id,
-                           discipline_id: self.discipline_id,
+                           calendar_id: self.calendar_id,
                            max_number: self.max_number,
                            start_date: s,
                            end_date: e) 

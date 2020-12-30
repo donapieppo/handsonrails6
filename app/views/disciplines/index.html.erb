@@ -1,8 +1,13 @@
+<div class="container">
 <h1>Attività</h1>
 
-<ul>
+<dl>
   <% @disciplines.each do |d| %>  
-    <li><%= d %></li>
+    <dt><%= d %></dt>
+    <% d.calendars.each do |c| %>  
+      <dd><%= link_to c, calendar_time_slots_path(c) %></dd>
+    <% end %>
   <% end %>
-</ul>
+</dl>
 
+</div>

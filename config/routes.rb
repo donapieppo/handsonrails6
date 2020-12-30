@@ -21,7 +21,8 @@ Rails.application.routes.draw do
     resources :games
   end
 
-  resources :disciplines do 
+  resources :disciplines
+  resources :calendars do 
     resources :time_slots_groups
     resources :time_slots
   end

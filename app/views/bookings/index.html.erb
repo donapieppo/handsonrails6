@@ -1,4 +1,4 @@
-<h1><%= @time_slot %></h1>
+<h1><%= @time_slot %> <%= link_to 'vai', discipline_time_slots_path(@time_slot.discipline_id) %>  </h1>
 
 <ul>
   <% @bookings.each do |b| %>  

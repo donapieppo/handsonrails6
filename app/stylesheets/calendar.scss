@@ -1,0 +1,26 @@
+//Total width divided by days in a week
+$day-block-width: 100%/7;
+
+.calendar {
+  .days-of-week-title, .days-of-week {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .day-block {
+      flex-basis: $day-block-width;
+      text-align: center;
+      box-sizing: border-box;
+      border: 1px solid black;
+    }
+  }
+
+  .days-of-week-title {
+    .day-block {
+      background-color: #ccc;
+    }
+  }
+  .day0 {
+    background-color: red;
+  }
+}
