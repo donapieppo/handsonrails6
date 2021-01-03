@@ -5,9 +5,12 @@ class GamesController < ApplicationController
 
   def index
     @games = Game.includes(:user).with_attached_image
+    @user = params[:user_id] ? User.find(params[:user_id]) : nil
+    @zone = params[:zone_id] ? Zone.find(params[:zone_id]) : nil
 
     @games = @games.where(color_id: params[:color_id]) if params[:color_id]
-    @games = @games.where(user_id: params[:user_id]) if params[:user_id]
+    @games = @games.where(user_id: params[:user_id]) if @user 
+    @games = @games.where(zone_id: params[:zone_id]) if @zone
 
     @games = @games.where(competition: true) if params[:competition] && user_manager?
     @games = @games.where('name like "%prototype%"') if params[:prototype]
@@ -92,7 +95,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    p = [:name, :description, :color_id, :user_id, :image, :video_url, :sit_start, :two_hands_start, :free_feet]
+    p = [:name, :description, :color_id, :zone_id, :user_id, :image, :video_url, :sit_start, :two_hands_start, :free_feet]
     p << :competition if user_manager?
     p << :user_id if user_admin?
     params[:game].permit(p)

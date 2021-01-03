@@ -11,17 +11,17 @@
           <% if current_user %>  
             <div class="game-list-actions">
               <% if policy(game).edit? %>  
-                <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica"), edit_game_path(game) %>
+                <%= link_to icon('fas fa-edit fa-fw text-muted', "modifica", size: 28), edit_game_path(game) %>
                 <% if game.image.attached? %>  
-                  <%= link_to icon('fas fa-paint-brush fa-fw text-muted', 'modifica prese'), edit_pinnings_game_path(game) %> 
+                  <%= link_to icon('fas fa-paint-brush fa-fw text-muted', 'modifica prese', size: 28), edit_pinnings_game_path(game) %> 
                 <% end %>
               <% end %>
               <% Reaction.each_types do |t| %>
                 <%= link_to_game_reaction(game, t) %> 
               <% end %>
-              <%= link_to icon('far fa-comment fa-fw text-muted', ' aggiungi un tuo commento'), new_game_comment_path(game) %> 
+              <%= link_to icon('far fa-comment fa-fw text-muted', ' aggiungi un tuo commento', size: 28), new_game_comment_path(game) %> 
               <% if policy(game).destroy? %>  
-                <%= link_to icon('fas fa-trash fa-fw text-muted', "elimina"), game_path(game), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %> 
+                <%= link_to icon('fas fa-trash fa-fw text-muted', "elimina", size: 28), game_path(game), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %> 
               <% end %>
             </div>
           <% else %>

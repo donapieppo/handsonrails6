@@ -32,6 +32,7 @@
           <span class="float-right">
             <small><%= l @game.created_at %></small> 
             <%= link_to "by #{@game.user.name}", games_path(user_id: @game.user_id), class: "badge badge-info float-right ml-2 mt-1" %>
+            <%= link_to "parete #{@game.zone.name}", games_path(zone_id: @game.zone_id), class: "badge badge-info float-right ml-2 mt-1" %>
           </span>
         </div>
       </div>

@@ -5,8 +5,8 @@
   <button id="start_hold_btn"         class="pinning-action-button pinning-selected-button">Start</button> 
   <button id="hold_btn"               class="pinning-action-button">Presa</button> 
   <button id="top_hold_btn"           class="pinning-action-button">Top</button> 
-  <button id="increase_hold_size_btn" class="pinning-action-button mt-2"><i class="fas fa-plus"></i></button> 
-  <button id="decrease_hold_size_btn" class="pinning-action-button"><i class="fas fa-minus"></i></button> 
+  <button id="increase_hold_size_btn" class="pinning-action-button mt-2"><i class="fas fa-search-plus"></i></button> 
+  <button id="decrease_hold_size_btn" class="pinning-action-button"><i class="fas fa-search-minus"></i></button> 
   <button id="undo_btn"               class="pinning-action-button"><i class="fas fa-undo"></i></button>
   <button id="save"                   class="pinning-action-button mt-2">Salva</button>
   <button id="exit"                   class="pinning-action-button mt-2">Esci</button>
@@ -16,7 +16,7 @@
 <script>
    const holds_pinner = new HoldsPinner({target: 'canvasDiv', width: <%= width %>, height: <%= height %>, editable: true, numerable: <%= @game.free_feet.to_s %>});
    const startingHolds = <%= raw (@game.pinnings ? @game.pinnings.to_json : []) %>;
-   console.log('startingHolds')
+   console.log('startingHolds: ')
    console.log(startingHolds)
 
    holds_pinner.setup(startingHolds);

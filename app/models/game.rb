@@ -2,6 +2,7 @@
 class Game < ApplicationRecord
   belongs_to :user
   belongs_to :color
+  belongs_to :zone
   has_many :reactions, dependent: :destroy
   has_many :comments, dependent: :destroy
 

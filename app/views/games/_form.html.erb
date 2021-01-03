@@ -3,8 +3,9 @@
   <%= g.input :name %>  
   <%= g.input :description %>  
   <%= g.association :color, label_method: -> (c) {I18n.t c.name}, include_blank: false %>  
+  <%= g.association :zone, include_blank: false %>  
   <% if user_admin? %>  
-    <%= g.association :user %>  
+    <%= g.association :user, collection: User.order(:name) %>  
   <% end %>
 
   <div class="form-group row">

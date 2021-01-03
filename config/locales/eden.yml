@@ -19,6 +19,7 @@ it:
         user: Tracciatore
         description: Commento / Descrizione
         color: Colore
+        zone: Parete
         competition: per la prossima gara
         sit_start: partenza da terra
         free_feet: piedi liberi
