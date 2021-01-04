@@ -2,7 +2,7 @@ class Zone < ApplicationRecord
   belongs_to :game
 
   def to_s
-    self.name
+    self.description + " (#{self.name})"
   end
 end
 
