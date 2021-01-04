@@ -9,6 +9,13 @@
     <% end %>
   </div>
 
+  <center>
+    <h4>oppure la parete</h4>
+    <% Zone.find_each do |z| %>  
+      <%= link_to z.name, zone_games_path(z), class: 'btn btn-sm btn-xl-lg btn-outline-primary', title: z.description %>  
+    <% end %>
+  </center>
+
   <div class="row mt-3">
     <div class="last-games-container">
       <p><strong>Ultimi blocchi/giri</strong></p>
