@@ -5,8 +5,9 @@ class Color < ApplicationRecord
   @@colors = {
       'blue'   => "#0070C0",
       'green'  => "#339933",
-      'yellow' => "#FFFF5C",
-      'yellow' => "#D6D633",
+      # 'yellow' => "#FFFF5C",
+      # 'yellow' => "#D6D633",
+      'yellow' => "#FFFF33",
       'orange' => "#FFB733",
       'purple' => "#993399",
       'black'  => "#333333"
