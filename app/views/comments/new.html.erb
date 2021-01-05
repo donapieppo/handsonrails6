@@ -1,8 +1,8 @@
 <div class="container">
-<h1>Aggiungi un commento</h1>
+  <p>Aggiungi un commento a <br/> ''<%= @game.name %>'' di <%= @game.user %>  </p>
 
-<%= simple_form_for [@game, @comment] do |comment| %>  
-  <%= comment.input :name, label:false, as: :text %>  
-  <%= comment.submit 'Invia', class: 'btn btn-primary btn-sm'  %>  
-<% end %>
+  <%= simple_form_for [@game, @comment] do |comment| %>  
+    <%= comment.input :name, label:false, as: :text %>  
+    <%= comment.submit 'Invia', class: 'btn btn-primary btn-sm'  %>  
+  <% end %>
 </div>
