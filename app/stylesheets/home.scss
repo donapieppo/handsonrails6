@@ -59,3 +59,16 @@
   max-width: 800px; 
   font-size: 14px;
 }
+
+.zone-button {
+  @extend .btn;
+  @extend .btn-outline-primary;
+  padding: 1px;
+  margin: 5px;
+  width: 15%;
+}
+.zone-button-empty {
+  display: inline-block;
+  margin: 5px;
+  width: 10%;
+}
