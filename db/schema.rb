@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "bookings", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "user_id", unsigned: true
-    t.integer "time_slot_id", unsigned: true
-    t.index ["time_slot_id"], name: "fk_time_slot_bookings"
-    t.index ["user_id"], name: "fk_user_bookings"
-  end
-
   create_table "colors", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.integer "val", null: false
@@ -55,17 +48,12 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.index ["user_id"], name: "user_id"
   end
 
-  create_table "disciplines", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "slug", limit: 50
-    t.string "name", limit: 200
-    t.integer "num"
-  end
-
   create_table "games", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "color_id", unsigned: true
     t.integer "user_id", unsigned: true
+    t.integer "zone_id", unsigned: true
     t.text "pinnings"
     t.string "pinnings_image", limit: 200
     t.string "video_url"
@@ -95,27 +83,6 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.index ["user_id"], name: "user_id"
   end
 
-  create_table "time_slots", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "time_slots_group_id", unsigned: true
-    t.integer "discipline_id", unsigned: true
-    t.integer "max_number", default: 0, unsigned: true
-    t.integer "actual_number", default: 0, unsigned: true
-    t.integer "booked_number", default: 0, unsigned: true
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.index ["discipline_id"], name: "fk_disciplines_time_slots"
-  end
-
-  create_table "time_slots_groups", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "discipline_id", unsigned: true
-    t.integer "max_number", default: 0, unsigned: true
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer "minutes"
-    t.integer "every_minutes"
-    t.index ["discipline_id"], name: "fk_disciplines_time_slots_groups"
-  end
-
   create_table "users", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -123,15 +90,16 @@ ActiveRecord::Schema.define(version: 2019_04_05_071128) do
     t.datetime "updated_at"
   end
 
+  create_table "zones", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", limit: 20
+    t.text "description"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bookings", "time_slots", name: "fk_time_slot_bookings", on_delete: :cascade
-  add_foreign_key "bookings", "users", name: "fk_user_bookings", on_delete: :cascade
   add_foreign_key "comments", "games", name: "comment_game_id_k"
   add_foreign_key "comments", "users", name: "comment_user_id_k"
   add_foreign_key "games", "colors", name: "game_color_id_k"
   add_foreign_key "games", "users", name: "game_user_id_k"
   add_foreign_key "reactions", "games", name: "reaction_game_id_k"
   add_foreign_key "reactions", "users", name: "reaction_user_id_k"
-  add_foreign_key "time_slots", "disciplines", name: "fk_disciplines_time_slots", on_delete: :cascade
-  add_foreign_key "time_slots_groups", "disciplines", name: "fk_disciplines_time_slots_groups", on_delete: :cascade
 end
