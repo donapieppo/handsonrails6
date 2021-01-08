@@ -25,6 +25,7 @@ body {
 }
 .btn-login {
   @extend .btn;
+  @extend .btn-sm;
   background-color: $main-button;
 }
 .home-last-games {

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light sticky-top bg-white">
-  <%= link_to root_path, class: "navbar-brand" do %>
+  <%= link_to root_path, class: "navbar-brand mx-0" do %>
     <%= image_tag 'eden_logo.jpg' %> 
   <% end %>
 
@@ -36,7 +36,7 @@
     </div>
   <% else %>
     <ul class="nav">
-      <li class="nav-item"><%= link_to icon("fas fa-sign-in-alt fa-fw", 'accedi'), login_path, class: "btn-login" %>  </li>
+      <li class="nav-item"><%= link_to icon("fas fa-sign-in-alt fa-fw", 'entra'), login_path, class: "btn-login" %>  </li>
     </ul>
   <% end %>
 </nav>
