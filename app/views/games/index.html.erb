@@ -1,10 +1,16 @@
 <div class="container">
+  <center>
   <% if @user %>  
     <h2>I blocchi di <%= @user %></h2>
   <% end %>
   <% if @zone %>  
-    <h2><%= @zone %></h2>
+    <h2>
+      <%= link_to(icon('fas fa-angle-left', size: 36), zone_games_path(@zone.id - 1)) if @zone.id > 2 %> 
+      &nbsp; <%= @zone %> &nbsp;
+      <%= link_to(icon('fas fa-angle-right', size: 36), zone_games_path(@zone.id + 1)) if @zone.id < 9 %> 
+    </h2>
   <% end %>
+  </center>
   <div class="games-list">
     <% @games.each do |game| %>  
       <div class="game-card mb-3">
